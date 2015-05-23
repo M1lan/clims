@@ -10,6 +10,11 @@ App related
 * [Light CSS lib](http://getskeleton.com/)
 * [Fonts and icons](http://fortawesome.github.io/Font-Awesome/)
 
+Database
+---
+* [Rethinkdb](http://rethinkdb.com/) - JSON database with pub/sub and some neat data streaming features.
+* [Postgresql](http://www.postgresql.org/) - The good ol' PG
+
 Deployment
 ---
 * [Nginx](http://nginx.org/en/) - Something we should both be familiar with since it will play a role in security.

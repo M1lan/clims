@@ -1,5 +1,5 @@
 # ims
-An inventory managment system written in something.
+An inventory managment system built with various things.
 
 # Links
 * [Go web framework](https://github.com/gin-gonic/gin) - This is some good biz too, this guy knows his web stuff.

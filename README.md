@@ -20,3 +20,7 @@ Deployment
 * [Nginx](http://nginx.org/en/) - Something we should both be familiar with since it will play a role in security.
 * [Redis](http://redis.io/) - Key-value store that is commonly used for session management.
 * [Memcached](http://memcached.org/) - Something similar to the above. I don't know detailed differences. 
+
+Security
+---
+* [On http cookies and security](http://crypto.stanford.edu/cs142/papers/web-session-management.pdf) - some notes on cookie attributes and related security.

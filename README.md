@@ -9,6 +9,7 @@ Server side
 * [A possible json lib](https://github.com/madnificent/jsown) - Has some nicer object conversion/access properties than the below json lib.
 * [Another json lib](https://github.com/hankhero/cl-json) - Used at offersavvy.
 * [CL encryption lib](http://method-combination.net/lisp/ironclad/) - Used at offersavvy.
+* [Crypto addon for clack](https://github.com/eudoxia0/hermetic) - We should "audit" this to the best of our ability if we use it in any way.
 
 Front end
 ---

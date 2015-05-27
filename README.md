@@ -30,4 +30,6 @@ Deployment
 
 Security
 ---
+* [More about sessions etc.](http://stackoverflow.com/a/11236320/2297687)
+* [Table layout for auth](http://stackoverflow.com/a/27470944/2297687)
 * [On http cookies and security](http://crypto.stanford.edu/cs142/papers/web-session-management.pdf) - some notes on cookie attributes and related security.

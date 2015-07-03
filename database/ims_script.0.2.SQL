@@ -1,499 +1,498 @@
 ﻿/*
-Created: 7/6/2015
-Modified: 7/7/2015
-Model: PostgreSQL 9.4
-Database: PostgreSQL 9.4
+created: 7/6/2015
+modified: 7/7/2015
+model: postgresql 9.4
+database: postgresql 9.4
 */
 
 
--- Create user data types section -------------------------------------------------
+-- create user data types section -------------------------------------------------
 
-CREATE TYPE "quantity" AS
+create type "units" as enum
+ ( 'oz', 'pounds', 'grams', 'kilograms', 'item' )
+;
+
+create type "quantity" as
  ( units units,
 amount float )
 ;
 
-CREATE TYPE "units" AS ENUM
- ( 'oz', 'pounds', 'grams', 'kilograms', 'item' )
-;
+-- create tables section -------------------------------------------------
 
--- Create tables section -------------------------------------------------
+-- table components
 
--- Table components
-
-CREATE TABLE "components"(
- "item-id" Serial NOT NULL,
- "name" Varchar,
- "type" Integer,
- "price" Double precision NOT NULL
+create table "components"(
+ "item-id" serial not null,
+ "name" varchar,
+ "type" integer,
+ "price" double precision not null
 )
 ;
 
--- Add keys for table components
+-- add keys for table components
 
-ALTER TABLE "components" ADD CONSTRAINT "Key1" PRIMARY KEY ("item-id")
+alter table "components" add constraint "key1" primary key ("item-id")
 ;
 
--- Table manufacturing
+-- table employees
 
-CREATE TABLE "manufacturing"(
- "date" Timestamp,
- "misc_info" Varchar,
- "report" Varchar,
- "cost" Double precision,
- "job-number" Integer NOT NULL,
- "batch-number" Serial NOT NULL
+create table "employees"(
+ "employee-id" serial not null,
+ "wage-type" integer
 )
 ;
 
--- Add keys for table manufacturing
+-- add keys for table employees
 
-ALTER TABLE "manufacturing" ADD CONSTRAINT "Key2" PRIMARY KEY ("job-number")
+alter table "employees" add constraint "key10" primary key ("employee-id")
 ;
 
-ALTER TABLE "manufacturing" ADD CONSTRAINT "batch-number" UNIQUE ("batch-number")
+-- table customers
+
+create table "customers"(
+ "customer-id" serial not null
+)
 ;
 
--- Table crafting
+-- add keys for table customers
 
-CREATE TABLE "crafting"(
- "used-in" Integer NOT NULL,
- "producing" Integer NOT NULL,
+alter table "customers" add constraint "key6" primary key ("customer-id")
+;
+
+-- table job
+
+create table "job"(
+ "job-number" serial not null,
+ "name" varchar,
+ "type" integer,
+ "finished" boolean
+)
+;
+
+-- add keys for table job
+
+alter table "job" add constraint "key7" primary key ("job-number")
+;
+
+-- table manufacturing
+
+create table "manufacturing"(
+ "date" timestamp,
+ "misc_info" varchar,
+ "report" varchar,
+ "cost" double precision,
+ "job-number" integer not null,
+ "batch-number" serial not null
+)
+;
+
+-- add keys for table manufacturing
+
+alter table "manufacturing" add constraint "key2" primary key ("job-number")
+;
+
+alter table "manufacturing" add constraint "batch-number" unique ("batch-number")
+;
+
+-- table elements
+
+create table "elements"(
+ "item-id" integer not null,
  "quantity" "quantity",
- "labor-time" Double precision
+ "in-out" boolean,
+ "job-number" integer not null
 )
 ;
 
--- Add keys for table crafting
+-- add keys for table elements
 
-ALTER TABLE "crafting" ADD CONSTRAINT "Key3" PRIMARY KEY ("used-in","producing")
+alter table "elements" add constraint "key9" primary key ("item-id","job-number")
 ;
 
--- Table sales
+-- table sales
 
-CREATE TABLE "sales"(
- "sale-number" Serial NOT NULL,
- "date" Timestamp,
- "cost" Double precision,
- "customer-id" Integer NOT NULL,
- "job-number" Integer NOT NULL
+create table "sales"(
+ "sale-number" serial not null,
+ "date" timestamp,
+ "cost" double precision,
+ "customer-id" integer not null,
+ "job-number" integer not null
 )
 ;
 
--- Create indexes for table sales
+-- create indexes for table sales
 
-CREATE INDEX "IX_Relationship7" ON "sales" ("customer-id")
+create index "ix_relationship7" on "sales" ("customer-id")
 ;
 
--- Add keys for table sales
+-- add keys for table sales
 
-ALTER TABLE "sales" ADD CONSTRAINT "Key4" PRIMARY KEY ("job-number")
+alter table "sales" add constraint "key4" primary key ("job-number")
 ;
 
-ALTER TABLE "sales" ADD CONSTRAINT "sale-number" UNIQUE ("sale-number")
+alter table "sales" add constraint "sale-number" unique ("sale-number")
 ;
 
--- Table sold
+-- table sold
 
-CREATE TABLE "sold"(
- "item-id" Integer NOT NULL,
+create table "sold"(
+ "item-id" integer not null,
  "quantity" "quantity",
- "price" Double precision,
- "job-number" Integer NOT NULL
+ "price" double precision,
+ "job-number" integer not null
 )
 ;
 
--- Add keys for table sold
+-- add keys for table sold
 
-ALTER TABLE "sold" ADD CONSTRAINT "Key5" PRIMARY KEY ("item-id","job-number")
+alter table "sold" add constraint "key5" primary key ("item-id","job-number")
 ;
 
--- Table customers
+-- table crafting
 
-CREATE TABLE "customers"(
- "customer-id" Serial NOT NULL
-)
-;
-
--- Add keys for table customers
-
-ALTER TABLE "customers" ADD CONSTRAINT "Key6" PRIMARY KEY ("customer-id")
-;
-
--- Table job
-
-CREATE TABLE "job"(
- "job-number" Serial NOT NULL,
- "name" Varchar,
- "type" Integer,
- "finished" Boolean
-)
-;
-
--- Add keys for table job
-
-ALTER TABLE "job" ADD CONSTRAINT "Key7" PRIMARY KEY ("job-number")
-;
-
--- Table administrative
-
-CREATE TABLE "administrative"(
- "date" Timestamp,
- "job-number" Integer NOT NULL,
- "admin-number" Serial NOT NULL
-)
-;
-
--- Add keys for table administrative
-
-ALTER TABLE "administrative" ADD CONSTRAINT "Key8" PRIMARY KEY ("job-number")
-;
-
-ALTER TABLE "administrative" ADD CONSTRAINT "admin-number" UNIQUE ("admin-number")
-;
-
--- Table ekements
-
-CREATE TABLE "ekements"(
- "item-id" Integer NOT NULL,
+create table "crafting"(
+ "used-in" integer not null,
+ "producing" integer not null,
  "quantity" "quantity",
- "in-out" Boolean,
- "job-number" Integer NOT NULL
+ "labor-time" double precision
 )
 ;
 
--- Add keys for table ekements
+-- add keys for table crafting
 
-ALTER TABLE "ekements" ADD CONSTRAINT "Key9" PRIMARY KEY ("item-id","job-number")
+alter table "crafting" add constraint "key3" primary key ("used-in","producing")
 ;
 
--- Table employees
+-- table administrative
 
-CREATE TABLE "employees"(
- "employee-id" Serial NOT NULL,
- "wage-type" Integer
+create table "administrative"(
+ "date" timestamp,
+ "job-number" integer not null,
+ "admin-number" serial not null
 )
 ;
 
--- Add keys for table employees
+-- add keys for table administrative
 
-ALTER TABLE "employees" ADD CONSTRAINT "Key10" PRIMARY KEY ("employee-id")
+alter table "administrative" add constraint "key8" primary key ("job-number")
 ;
 
--- Table worked-on
+alter table "administrative" add constraint "admin-number" unique ("admin-number")
+;
 
-CREATE TABLE "worked-on"(
- "employee-id" Integer NOT NULL,
- "job-number" Integer NOT NULL,
- "hours" Double precision
+-- table worked-on
+
+create table "worked-on"(
+ "employee-id" integer not null,
+ "job-number" integer not null,
+ "hours" double precision
 )
 ;
 
--- Add keys for table worked-on
+-- add keys for table worked-on
 
-ALTER TABLE "worked-on" ADD CONSTRAINT "Key11" PRIMARY KEY ("employee-id","job-number")
+alter table "worked-on" add constraint "key11" primary key ("employee-id","job-number")
 ;
 
--- Table inventory
+-- table inventory
 
-CREATE TABLE "inventory"(
- "employee-id" Integer NOT NULL,
- "item-id" Integer NOT NULL,
- "date" Timestamp,
+create table "inventory"(
+ "employee-id" integer not null,
+ "item-id" integer not null,
+ "date" timestamp,
  "quantity" "quantity"
 )
 ;
 
--- Add keys for table inventory
+-- add keys for table inventory
 
-ALTER TABLE "inventory" ADD CONSTRAINT "Key12" PRIMARY KEY ("employee-id","item-id")
+alter table "inventory" add constraint "key12" primary key ("employee-id","item-id")
 ;
 
--- Table equipment
+-- table equipment
 
-CREATE TABLE "equipment"(
- "equipment-id" Serial NOT NULL,
- "name" Varchar,
- "training-manual" Varchar,
- "use" Varchar
+create table "equipment"(
+ "equipment-id" serial not null,
+ "name" varchar,
+ "training-manual" varchar,
+ "use" varchar
 )
 ;
 
--- Add keys for table equipment
+-- add keys for table equipment
 
-ALTER TABLE "equipment" ADD CONSTRAINT "Key13" PRIMARY KEY ("equipment-id")
+alter table "equipment" add constraint "key13" primary key ("equipment-id")
 ;
 
--- Table trained-on
+-- table trained-on
 
-CREATE TABLE "trained-on"(
- "equipment-id" Integer NOT NULL,
- "employee-id" Integer NOT NULL
+create table "trained-on"(
+ "equipment-id" integer not null,
+ "employee-id" integer not null
 )
 ;
 
--- Add keys for table trained-on
+-- add keys for table trained-on
 
-ALTER TABLE "trained-on" ADD CONSTRAINT "Key14" PRIMARY KEY ("equipment-id","employee-id")
+alter table "trained-on" add constraint "key14" primary key ("equipment-id","employee-id")
 ;
 
--- Table equipment-used
+-- table equipment-used
 
-CREATE TABLE "equipment-used"(
- "equipment-id" Integer NOT NULL,
- "job-number" Integer NOT NULL
+create table "equipment-used"(
+ "equipment-id" integer not null,
+ "job-number" integer not null
 )
 ;
 
--- Add keys for table equipment-used
+-- add keys for table equipment-used
 
-ALTER TABLE "equipment-used" ADD CONSTRAINT "Key15" PRIMARY KEY ("equipment-id","job-number")
+alter table "equipment-used" add constraint "key15" primary key ("equipment-id","job-number")
 ;
 
--- Table maintenience
+-- table suppliers
 
-CREATE TABLE "maintenience"(
- "maintenience-id" Serial NOT NULL,
- "type" Integer,
- "job-number" Integer,
- "order-id" Integer
+create table "suppliers"(
+ "supplier-id" serial not null,
+ "supplier-type" integer
 )
 ;
 
--- Create indexes for table maintenience
+-- add keys for table suppliers
 
-CREATE INDEX "IX_maintjob-num" ON "maintenience" ("job-number")
+alter table "suppliers" add constraint "key18" primary key ("supplier-id")
 ;
 
-CREATE INDEX "IX_Relationship38" ON "maintenience" ("order-id")
-;
+-- table orders
 
--- Add keys for table maintenience
-
-ALTER TABLE "maintenience" ADD CONSTRAINT "Key16" PRIMARY KEY ("maintenience-id")
-;
-
--- Table maintained
-
-CREATE TABLE "maintained"(
- "maintenience-id" Integer NOT NULL,
- "equipment-id" Integer NOT NULL,
- "fixed" Varchar
+create table "orders"(
+ "order-id" serial not null,
+ "date" timestamp,
+ "type" integer,
+ "supplier-id" integer
 )
 ;
 
--- Add keys for table maintained
+-- create indexes for table orders
 
-ALTER TABLE "maintained" ADD CONSTRAINT "Key17" PRIMARY KEY ("maintenience-id","equipment-id")
+create index "ix_relationship30" on "orders" ("supplier-id")
 ;
 
--- Table suppliers
+-- add keys for table orders
 
-CREATE TABLE "suppliers"(
- "supplier-id" Serial NOT NULL,
- "supplier-type" Integer
+alter table "orders" add constraint "key19" primary key ("order-id")
+;
+
+-- table maintenience-orders
+
+create table "maintenience-orders"(
+ "order-id" integer not null,
+ "price" double precision
 )
 ;
 
--- Add keys for table suppliers
+-- add keys for table maintenience-orders
 
-ALTER TABLE "suppliers" ADD CONSTRAINT "Key18" PRIMARY KEY ("supplier-id")
+alter table "maintenience-orders" add constraint "key24" primary key ("order-id")
 ;
 
--- Table orders
+-- table maintenience
 
-CREATE TABLE "orders"(
- "order-id" Serial NOT NULL,
- "date" Timestamp,
- "type" Integer,
- "supplier-id" Integer
+create table "maintenience"(
+ "maintenience-id" serial not null,
+ "type" integer,
+ "job-number" integer,
+ "order-id" integer
 )
 ;
 
--- Create indexes for table orders
+-- create indexes for table maintenience
 
-CREATE INDEX "IX_Relationship30" ON "orders" ("supplier-id")
+create index "ix_maintjob-num" on "maintenience" ("job-number")
 ;
 
--- Add keys for table orders
-
-ALTER TABLE "orders" ADD CONSTRAINT "Key19" PRIMARY KEY ("order-id")
+create index "ix_relationship38" on "maintenience" ("order-id")
 ;
 
--- Table components-orders
+-- add keys for table maintenience
 
-CREATE TABLE "components-orders"(
- "order-id" Integer NOT NULL
+alter table "maintenience" add constraint "key16" primary key ("maintenience-id")
+;
+
+-- table maintained
+
+create table "maintained"(
+ "maintenience-id" integer not null,
+ "equipment-id" integer not null,
+ "fixed" varchar
 )
 ;
 
--- Add keys for table components-orders
+-- add keys for table maintained
 
-ALTER TABLE "components-orders" ADD CONSTRAINT "Key20" PRIMARY KEY ("order-id")
+alter table "maintained" add constraint "key17" primary key ("maintenience-id","equipment-id")
 ;
 
--- Table composed-of-components
+-- table components-orders
 
-CREATE TABLE "composed-of-components"(
- "order-id" Integer NOT NULL,
- "item-id" Integer NOT NULL,
+create table "components-orders"(
+ "order-id" integer not null
+)
+;
+
+-- add keys for table components-orders
+
+alter table "components-orders" add constraint "key20" primary key ("order-id")
+;
+
+-- table composed-of-components
+
+create table "composed-of-components"(
+ "order-id" integer not null,
+ "item-id" integer not null,
  "quantity" "quantity",
- "price" Double precision
+ "price" double precision
 )
 ;
 
--- Add keys for table composed-of-components
+-- add keys for table composed-of-components
 
-ALTER TABLE "composed-of-components" ADD CONSTRAINT "Key21" PRIMARY KEY ("order-id","item-id")
+alter table "composed-of-components" add constraint "key21" primary key ("order-id","item-id")
 ;
 
--- Table equipment-orders
+-- table equipment-orders
 
-CREATE TABLE "equipment-orders"(
- "order-id" Integer NOT NULL
+create table "equipment-orders"(
+ "order-id" integer not null
 )
 ;
 
--- Add keys for table equipment-orders
+-- add keys for table equipment-orders
 
-ALTER TABLE "equipment-orders" ADD CONSTRAINT "Key22" PRIMARY KEY ("order-id")
+alter table "equipment-orders" add constraint "key22" primary key ("order-id")
 ;
 
--- Table composed-of-equipment
+-- table composed-of-equipment
 
-CREATE TABLE "composed-of-equipment"(
- "order-id" Integer NOT NULL,
- "equipment-id" Integer NOT NULL,
- "price" Double precision,
+create table "composed-of-equipment"(
+ "order-id" integer not null,
+ "equipment-id" integer not null,
+ "price" double precision,
  "quantity" "quantity"
 )
 ;
 
--- Add keys for table composed-of-equipment
+-- add keys for table composed-of-equipment
 
-ALTER TABLE "composed-of-equipment" ADD CONSTRAINT "Key23" PRIMARY KEY ("order-id","equipment-id")
+alter table "composed-of-equipment" add constraint "key23" primary key ("order-id","equipment-id")
 ;
 
--- Table maintenience-orders
+-- table recurring-costs
 
-CREATE TABLE "maintenience-orders"(
- "order-id" Integer NOT NULL,
- "price" Double precision
+create table "recurring-costs"(
+ "date" timestamp,
+ "cost-id" serial not null,
+ "type" integer,
+ "amount" double precision
 )
 ;
 
--- Add keys for table maintenience-orders
+-- add keys for table recurring-costs
 
-ALTER TABLE "maintenience-orders" ADD CONSTRAINT "Key24" PRIMARY KEY ("order-id")
+alter table "recurring-costs" add constraint "key26" primary key ("cost-id")
 ;
 
--- Table recurring-costs
+-- create relationships section ------------------------------------------------- 
 
-CREATE TABLE "recurring-costs"(
- "date" Timestamp,
- "cost-id" Serial NOT NULL,
- "type" Integer,
- "amount" Double precision
-)
+alter table "crafting" add constraint "used-in" foreign key ("used-in") references "components" ("item-id") on delete no action on update no action
 ;
 
--- Add keys for table recurring-costs
-
-ALTER TABLE "recurring-costs" ADD CONSTRAINT "Key26" PRIMARY KEY ("cost-id")
+alter table "crafting" add constraint "producing" foreign key ("producing") references "components" ("item-id") on delete no action on update no action
 ;
 
--- Create relationships section ------------------------------------------------- 
-
-ALTER TABLE "crafting" ADD CONSTRAINT "used-in" FOREIGN KEY ("used-in") REFERENCES "components" ("item-id") ON DELETE NO ACTION ON UPDATE NO ACTION
+alter table "sold" add constraint "sale" foreign key ("job-number") references "sales" ("job-number") on delete no action on update no action
 ;
 
-ALTER TABLE "crafting" ADD CONSTRAINT "producing" FOREIGN KEY ("producing") REFERENCES "components" ("item-id") ON DELETE NO ACTION ON UPDATE NO ACTION
+alter table "sold" add constraint "sale-item" foreign key ("item-id") references "components" ("item-id") on delete no action on update no action
 ;
 
-ALTER TABLE "sold" ADD CONSTRAINT "sale" FOREIGN KEY ("job-number") REFERENCES "sales" ("job-number") ON DELETE NO ACTION ON UPDATE NO ACTION
+alter table "sales" add constraint "buyer" foreign key ("customer-id") references "customers" ("customer-id") on delete no action on update no action
 ;
 
-ALTER TABLE "sold" ADD CONSTRAINT "sale-item" FOREIGN KEY ("item-id") REFERENCES "components" ("item-id") ON DELETE NO ACTION ON UPDATE NO ACTION
+alter table "administrative" add constraint "admin-job-num" foreign key ("job-number") references "job" ("job-number") on delete no action on update no action
 ;
 
-ALTER TABLE "sales" ADD CONSTRAINT "buyer" FOREIGN KEY ("customer-id") REFERENCES "customers" ("customer-id") ON DELETE NO ACTION ON UPDATE NO ACTION
+alter table "manufacturing" add constraint "manufacture-job-num" foreign key ("job-number") references "job" ("job-number") on delete no action on update no action
 ;
 
-ALTER TABLE "administrative" ADD CONSTRAINT "admin-job-num" FOREIGN KEY ("job-number") REFERENCES "job" ("job-number") ON DELETE NO ACTION ON UPDATE NO ACTION
+alter table "elements" add constraint "manufacture-item" foreign key ("item-id") references "components" ("item-id") on delete no action on update no action
 ;
 
-ALTER TABLE "manufacturing" ADD CONSTRAINT "manufacture-job-num" FOREIGN KEY ("job-number") REFERENCES "job" ("job-number") ON DELETE NO ACTION ON UPDATE NO ACTION
+alter table "elements" add constraint "batch" foreign key ("job-number") references "manufacturing" ("job-number") on delete no action on update no action
 ;
 
-ALTER TABLE "ekements" ADD CONSTRAINT "manufacture-item" FOREIGN KEY ("item-id") REFERENCES "components" ("item-id") ON DELETE NO ACTION ON UPDATE NO ACTION
+alter table "sales" add constraint "sale-job-num" foreign key ("job-number") references "job" ("job-number") on delete no action on update no action
 ;
 
-ALTER TABLE "ekements" ADD CONSTRAINT "batch" FOREIGN KEY ("job-number") REFERENCES "manufacturing" ("job-number") ON DELETE NO ACTION ON UPDATE NO ACTION
+alter table "worked-on" add constraint "employee" foreign key ("employee-id") references "employees" ("employee-id") on delete no action on update no action
 ;
 
-ALTER TABLE "sales" ADD CONSTRAINT "sale-job-num" FOREIGN KEY ("job-number") REFERENCES "job" ("job-number") ON DELETE NO ACTION ON UPDATE NO ACTION
+alter table "worked-on" add constraint "job" foreign key ("job-number") references "job" ("job-number") on delete no action on update no action
 ;
 
-ALTER TABLE "worked-on" ADD CONSTRAINT "employee" FOREIGN KEY ("employee-id") REFERENCES "employees" ("employee-id") ON DELETE NO ACTION ON UPDATE NO ACTION
+alter table "inventory" add constraint "employee-inv" foreign key ("employee-id") references "employees" ("employee-id") on delete no action on update no action
 ;
 
-ALTER TABLE "worked-on" ADD CONSTRAINT "job" FOREIGN KEY ("job-number") REFERENCES "job" ("job-number") ON DELETE NO ACTION ON UPDATE NO ACTION
+alter table "inventory" add constraint "inv-item" foreign key ("item-id") references "components" ("item-id") on delete no action on update no action
 ;
 
-ALTER TABLE "inventory" ADD CONSTRAINT "employee" FOREIGN KEY ("employee-id") REFERENCES "employees" ("employee-id") ON DELETE NO ACTION ON UPDATE NO ACTION
+alter table "trained-on" add constraint "train-equipment" foreign key ("equipment-id") references "equipment" ("equipment-id") on delete no action on update no action
 ;
 
-ALTER TABLE "inventory" ADD CONSTRAINT "inv-item" FOREIGN KEY ("item-id") REFERENCES "components" ("item-id") ON DELETE NO ACTION ON UPDATE NO ACTION
+alter table "trained-on" add constraint "employee-train" foreign key ("employee-id") references "employees" ("employee-id") on delete no action on update no action
 ;
 
-ALTER TABLE "trained-on" ADD CONSTRAINT "train-equipment" FOREIGN KEY ("equipment-id") REFERENCES "equipment" ("equipment-id") ON DELETE NO ACTION ON UPDATE NO ACTION
+alter table "equipment-used" add constraint "equipment-used" foreign key ("equipment-id") references "equipment" ("equipment-id") on delete no action on update no action
 ;
 
-ALTER TABLE "trained-on" ADD CONSTRAINT "employee" FOREIGN KEY ("employee-id") REFERENCES "employees" ("employee-id") ON DELETE NO ACTION ON UPDATE NO ACTION
+alter table "equipment-used" add constraint "process" foreign key ("job-number") references "manufacturing" ("job-number") on delete no action on update no action
 ;
 
-ALTER TABLE "equipment-used" ADD CONSTRAINT "equipment-used" FOREIGN KEY ("equipment-id") REFERENCES "equipment" ("equipment-id") ON DELETE NO ACTION ON UPDATE NO ACTION
+alter table "maintained" add constraint "maintain" foreign key ("maintenience-id") references "maintenience" ("maintenience-id") on delete no action on update no action
 ;
 
-ALTER TABLE "equipment-used" ADD CONSTRAINT "process" FOREIGN KEY ("job-number") REFERENCES "manufacturing" ("job-number") ON DELETE NO ACTION ON UPDATE NO ACTION
+alter table "maintained" add constraint "equipment-fixed" foreign key ("equipment-id") references "equipment" ("equipment-id") on delete no action on update no action
 ;
 
-ALTER TABLE "maintained" ADD CONSTRAINT "maintain" FOREIGN KEY ("maintenience-id") REFERENCES "maintenience" ("maintenience-id") ON DELETE NO ACTION ON UPDATE NO ACTION
+alter table "maintenience" add constraint "maint-job-num" foreign key ("job-number") references "job" ("job-number") on delete no action on update no action
 ;
 
-ALTER TABLE "maintained" ADD CONSTRAINT "equipment-fixed" FOREIGN KEY ("equipment-id") REFERENCES "equipment" ("equipment-id") ON DELETE NO ACTION ON UPDATE NO ACTION
+alter table "orders" add constraint "supplier" foreign key ("supplier-id") references "suppliers" ("supplier-id") on delete no action on update no action
 ;
 
-ALTER TABLE "maintenience" ADD CONSTRAINT "maint-job-num" FOREIGN KEY ("job-number") REFERENCES "job" ("job-number") ON DELETE NO ACTION ON UPDATE NO ACTION
+alter table "components-orders" add constraint "component-order-num" foreign key ("order-id") references "orders" ("order-id") on delete no action on update no action
 ;
 
-ALTER TABLE "orders" ADD CONSTRAINT "supplier" FOREIGN KEY ("supplier-id") REFERENCES "suppliers" ("supplier-id") ON DELETE NO ACTION ON UPDATE NO ACTION
+alter table "composed-of-components" add constraint "component-order" foreign key ("order-id") references "components-orders" ("order-id") on delete no action on update no action
 ;
 
-ALTER TABLE "components-orders" ADD CONSTRAINT "component-order-num" FOREIGN KEY ("order-id") REFERENCES "orders" ("order-id") ON DELETE NO ACTION ON UPDATE NO ACTION
+alter table "composed-of-components" add constraint "order-item" foreign key ("item-id") references "components" ("item-id") on delete no action on update no action
 ;
 
-ALTER TABLE "composed-of-components" ADD CONSTRAINT "component-order" FOREIGN KEY ("order-id") REFERENCES "components-orders" ("order-id") ON DELETE NO ACTION ON UPDATE NO ACTION
+alter table "equipment-orders" add constraint "equip-order-num" foreign key ("order-id") references "orders" ("order-id") on delete no action on update no action
 ;
 
-ALTER TABLE "composed-of-components" ADD CONSTRAINT "order-item" FOREIGN KEY ("item-id") REFERENCES "components" ("item-id") ON DELETE NO ACTION ON UPDATE NO ACTION
+alter table "composed-of-equipment" add constraint "equipment-order" foreign key ("order-id") references "equipment-orders" ("order-id") on delete no action on update no action
 ;
 
-ALTER TABLE "equipment-orders" ADD CONSTRAINT "equip-order-num" FOREIGN KEY ("order-id") REFERENCES "orders" ("order-id") ON DELETE NO ACTION ON UPDATE NO ACTION
+alter table "composed-of-equipment" add constraint "order-equipment" foreign key ("equipment-id") references "equipment" ("equipment-id") on delete no action on update no action
 ;
 
-ALTER TABLE "composed-of-equipment" ADD CONSTRAINT "equipment-order" FOREIGN KEY ("order-id") REFERENCES "equipment-orders" ("order-id") ON DELETE NO ACTION ON UPDATE NO ACTION
+alter table "maintenience-orders" add constraint "maint-order-num" foreign key ("order-id") references "orders" ("order-id") on delete no action on update no action
 ;
 
-ALTER TABLE "composed-of-equipment" ADD CONSTRAINT "order-equipment" FOREIGN KEY ("equipment-id") REFERENCES "equipment" ("equipment-id") ON DELETE NO ACTION ON UPDATE NO ACTION
+alter table "maintenience" add constraint "maint-order" foreign key ("order-id") references "maintenience-orders" ("order-id") on delete no action on update no action
 ;
-
-ALTER TABLE "maintenience-orders" ADD CONSTRAINT "maint-order-num" FOREIGN KEY ("order-id") REFERENCES "orders" ("order-id") ON DELETE NO ACTION ON UPDATE NO ACTION
-;
-
-ALTER TABLE "maintenience" ADD CONSTRAINT "maint-order" FOREIGN KEY ("order-id") REFERENCES "maintenience-orders" ("order-id") ON DELETE NO ACTION ON UPDATE NO ACTION
-;
-
 
 
 

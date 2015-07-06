@@ -37,8 +37,8 @@ need to handle packaging (loss/wastage) and time taken.
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>560</x>
-      <y>200</y>
+      <x>580</x>
+      <y>170</y>
       <w>210</w>
       <h>110</h>
     </coordinates>
@@ -55,8 +55,8 @@ price: float
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>760</x>
-      <y>200</y>
+      <x>780</x>
+      <y>170</y>
       <w>90</w>
       <h>90</h>
     </coordinates>
@@ -69,21 +69,22 @@ m2=0..*
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>860</x>
-      <y>210</y>
+      <x>880</x>
+      <y>180</y>
       <w>210</w>
-      <h>50</h>
+      <h>60</h>
     </coordinates>
     <panel_attributes>crafting
 --
-quantity: quantity</panel_attributes>
+quantity: quantity
+labor_time: float</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>820</x>
-      <y>230</y>
+      <x>840</x>
+      <y>200</y>
       <w>60</w>
       <h>30</h>
     </coordinates>
@@ -93,8 +94,8 @@ quantity: quantity</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>230</x>
-      <y>190</y>
+      <x>250</x>
+      <y>160</y>
       <w>150</w>
       <h>80</h>
     </coordinates>
@@ -108,8 +109,8 @@ cost: float (driving)</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>370</x>
-      <y>230</y>
+      <x>390</x>
+      <y>200</y>
       <w>210</w>
       <h>50</h>
     </coordinates>
@@ -122,8 +123,8 @@ sale                   item</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>430</x>
-      <y>160</y>
+      <x>450</x>
+      <y>130</y>
       <w>120</w>
       <h>60</h>
     </coordinates>
@@ -136,8 +137,8 @@ price: float</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>460</x>
-      <y>210</y>
+      <x>480</x>
+      <y>180</y>
       <w>30</w>
       <h>60</h>
     </coordinates>
@@ -147,8 +148,8 @@ price: float</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>200</x>
-      <y>340</y>
+      <x>220</x>
+      <y>310</y>
       <w>120</w>
       <h>50</h>
     </coordinates>
@@ -160,8 +161,8 @@ cust_id: serial PK</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>230</x>
-      <y>260</y>
+      <x>250</x>
+      <y>230</y>
       <w>110</w>
       <h>100</h>
     </coordinates>
@@ -174,8 +175,8 @@ buyer</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>350</x>
-      <y>650</y>
+      <x>370</x>
+      <y>620</y>
       <w>90</w>
       <h>50</h>
     </coordinates>
@@ -188,8 +189,8 @@ eid: serial PK
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>410</x>
-      <y>280</y>
+      <x>430</x>
+      <y>250</y>
       <w>170</w>
       <h>390</h>
     </coordinates>
@@ -201,8 +202,8 @@ m2=0..*</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>440</x>
-      <y>340</y>
+      <x>460</x>
+      <y>310</y>
       <w>120</w>
       <h>60</h>
     </coordinates>
@@ -215,8 +216,8 @@ date: timestamp</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>410</x>
-      <y>360</y>
+      <x>430</x>
+      <y>330</y>
       <w>50</w>
       <h>30</h>
     </coordinates>
@@ -226,8 +227,8 @@ date: timestamp</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>580</x>
-      <y>450</y>
+      <x>600</x>
+      <y>420</y>
       <w>160</w>
       <h>130</h>
     </coordinates>
@@ -244,8 +245,8 @@ cost: float
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>260</x>
-      <y>570</y>
+      <x>280</x>
+      <y>540</y>
       <w>80</w>
       <h>50</h>
     </coordinates>
@@ -257,8 +258,8 @@ hours: float</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>620</x>
-      <y>300</y>
+      <x>640</x>
+      <y>270</y>
       <w>50</w>
       <h>170</h>
     </coordinates>
@@ -271,8 +272,8 @@ m2=0..*
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>670</x>
-      <y>330</y>
+      <x>690</x>
+      <y>300</y>
       <w>150</w>
       <h>70</h>
     </coordinates>
@@ -285,8 +286,8 @@ in_out: enum ('in', 'out)</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>620</x>
-      <y>350</y>
+      <x>640</x>
+      <y>320</y>
       <w>70</w>
       <h>30</h>
     </coordinates>
@@ -296,8 +297,8 @@ in_out: enum ('in', 'out)</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>1080</x>
-      <y>510</y>
+      <x>1100</x>
+      <y>480</y>
       <w>140</w>
       <h>60</h>
     </coordinates>
@@ -310,8 +311,8 @@ supp_type: int/enum</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>850</x>
-      <y>500</y>
+      <x>870</x>
+      <y>470</y>
       <w>130</w>
       <h>80</h>
     </coordinates>
@@ -326,8 +327,8 @@ type: int/enum
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>970</x>
-      <y>520</y>
+      <x>990</x>
+      <y>490</y>
       <w>130</w>
       <h>50</h>
     </coordinates>
@@ -340,8 +341,8 @@ supplier</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>990</x>
-      <y>280</y>
+      <x>1010</x>
+      <y>250</y>
       <w>240</w>
       <h>60</h>
     </coordinates>
@@ -354,8 +355,8 @@ price: float</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>760</x>
-      <y>290</y>
+      <x>780</x>
+      <y>260</y>
       <w>180</w>
       <h>100</h>
     </coordinates>
@@ -367,8 +368,8 @@ m2=1..*</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>890</x>
-      <y>300</y>
+      <x>910</x>
+      <y>270</y>
       <w>120</w>
       <h>30</h>
     </coordinates>
@@ -378,8 +379,8 @@ m2=1..*</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>910</x>
-      <y>900</y>
+      <x>940</x>
+      <y>850</y>
       <w>300</w>
       <h>60</h>
     </coordinates>
@@ -392,8 +393,8 @@ amt: float</panel_attributes>
   <element>
     <id>Text</id>
     <coordinates>
-      <x>420</x>
-      <y>410</y>
+      <x>450</x>
+      <y>530</y>
       <w>80</w>
       <h>30</h>
     </coordinates>
@@ -403,8 +404,8 @@ amt: float</panel_attributes>
   <element>
     <id>Text</id>
     <coordinates>
-      <x>500</x>
-      <y>270</y>
+      <x>520</x>
+      <y>240</y>
       <w>50</w>
       <h>20</h>
     </coordinates>
@@ -414,8 +415,8 @@ amt: float</panel_attributes>
   <element>
     <id>Text</id>
     <coordinates>
-      <x>550</x>
-      <y>410</y>
+      <x>570</x>
+      <y>380</y>
       <w>90</w>
       <h>30</h>
     </coordinates>
@@ -425,8 +426,8 @@ amt: float</panel_attributes>
   <element>
     <id>Text</id>
     <coordinates>
-      <x>590</x>
-      <y>320</y>
+      <x>610</x>
+      <y>290</y>
       <w>90</w>
       <h>30</h>
     </coordinates>
@@ -436,8 +437,8 @@ amt: float</panel_attributes>
   <element>
     <id>Text</id>
     <coordinates>
-      <x>780</x>
-      <y>280</y>
+      <x>800</x>
+      <y>250</y>
       <w>90</w>
       <h>30</h>
     </coordinates>
@@ -447,8 +448,8 @@ amt: float</panel_attributes>
   <element>
     <id>Text</id>
     <coordinates>
-      <x>900</x>
-      <y>320</y>
+      <x>920</x>
+      <y>290</y>
       <w>90</w>
       <h>30</h>
     </coordinates>
@@ -458,8 +459,8 @@ amt: float</panel_attributes>
   <element>
     <id>Text</id>
     <coordinates>
-      <x>770</x>
-      <y>240</y>
+      <x>790</x>
+      <y>210</y>
       <w>90</w>
       <h>30</h>
     </coordinates>
@@ -469,8 +470,8 @@ amt: float</panel_attributes>
   <element>
     <id>Text</id>
     <coordinates>
-      <x>770</x>
-      <y>180</y>
+      <x>790</x>
+      <y>150</y>
       <w>90</w>
       <h>30</h>
     </coordinates>
@@ -480,8 +481,8 @@ amt: float</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>590</x>
-      <y>20</y>
+      <x>610</x>
+      <y>0</y>
       <w>210</w>
       <h>130</h>
     </coordinates>
@@ -496,8 +497,8 @@ open: boolean
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>230</x>
-      <y>430</y>
+      <x>250</x>
+      <y>400</y>
       <w>170</w>
       <h>110</h>
     </coordinates>
@@ -505,7 +506,6 @@ open: boolean
 --
 job_num: serial PK
 name: varchar(20)
-manager: employees(eid)
 type: int/enum
 finished: boolean</panel_attributes>
     <additional_attributes/>
@@ -513,8 +513,8 @@ finished: boolean</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>360</x>
-      <y>530</y>
+      <x>380</x>
+      <y>500</y>
       <w>50</w>
       <h>140</h>
     </coordinates>
@@ -527,8 +527,8 @@ m2=0..*
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>330</x>
-      <y>580</y>
+      <x>350</x>
+      <y>550</y>
       <w>60</w>
       <h>30</h>
     </coordinates>
@@ -538,8 +538,8 @@ m2=0..*
   <element>
     <id>Text</id>
     <coordinates>
-      <x>330</x>
-      <y>620</y>
+      <x>350</x>
+      <y>590</y>
       <w>50</w>
       <h>40</h>
     </coordinates>
@@ -549,8 +549,8 @@ m2=0..*
   <element>
     <id>Text</id>
     <coordinates>
-      <x>330</x>
-      <y>540</y>
+      <x>350</x>
+      <y>510</y>
       <w>60</w>
       <h>30</h>
     </coordinates>
@@ -560,8 +560,8 @@ m2=0..*
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>350</x>
-      <y>260</y>
+      <x>370</x>
+      <y>230</y>
       <w>50</w>
       <h>190</h>
     </coordinates>
@@ -574,8 +574,8 @@ num</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>390</x>
-      <y>460</y>
+      <x>410</x>
+      <y>430</y>
       <w>210</w>
       <h>50</h>
     </coordinates>
@@ -588,8 +588,8 @@ num</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>20</x>
-      <y>450</y>
+      <x>40</x>
+      <y>420</y>
       <w>140</w>
       <h>60</h>
     </coordinates>
@@ -603,8 +603,8 @@ date: timestamp
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>150</x>
-      <y>470</y>
+      <x>170</x>
+      <y>440</y>
       <w>100</w>
       <h>50</h>
     </coordinates>
@@ -617,8 +617,8 @@ num</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>560</x>
-      <y>750</y>
+      <x>580</x>
+      <y>720</y>
       <w>200</w>
       <h>90</h>
     </coordinates>
@@ -633,8 +633,8 @@ use: varchar(255)</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>870</x>
-      <y>370</y>
+      <x>890</x>
+      <y>340</y>
       <w>130</w>
       <h>60</h>
     </coordinates>
@@ -648,8 +648,8 @@ price: float
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>890</x>
-      <y>420</y>
+      <x>910</x>
+      <y>390</y>
       <w>30</w>
       <h>100</h>
     </coordinates>
@@ -661,8 +661,8 @@ m2=1</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>640</x>
-      <y>630</y>
+      <x>660</x>
+      <y>600</y>
       <w>130</w>
       <h>60</h>
     </coordinates>
@@ -675,8 +675,8 @@ equipment_id: int</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>610</x>
-      <y>570</y>
+      <x>630</x>
+      <y>540</y>
       <w>50</w>
       <h>200</h>
     </coordinates>
@@ -689,8 +689,8 @@ m2=0..*
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>610</x>
-      <y>650</y>
+      <x>630</x>
+      <y>620</y>
       <w>50</w>
       <h>30</h>
     </coordinates>
@@ -700,8 +700,8 @@ m2=0..*
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>260</x>
-      <y>730</y>
+      <x>280</x>
+      <y>700</y>
       <w>100</w>
       <h>60</h>
     </coordinates>
@@ -715,8 +715,8 @@ equip_id: int
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>390</x>
-      <y>690</y>
+      <x>410</x>
+      <y>660</y>
       <w>190</w>
       <h>130</h>
     </coordinates>
@@ -729,8 +729,8 @@ m2=0..*
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>350</x>
-      <y>760</y>
+      <x>370</x>
+      <y>730</y>
       <w>70</w>
       <h>30</h>
     </coordinates>
@@ -740,8 +740,8 @@ m2=0..*
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>850</x>
-      <y>640</y>
+      <x>870</x>
+      <y>610</y>
       <w>130</w>
       <h>60</h>
     </coordinates>
@@ -755,8 +755,8 @@ price: float
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>890</x>
-      <y>570</y>
+      <x>910</x>
+      <y>540</y>
       <w>30</w>
       <h>90</h>
     </coordinates>
@@ -768,8 +768,8 @@ m2=1</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>990</x>
-      <y>740</y>
+      <x>1010</x>
+      <y>710</y>
       <w>240</w>
       <h>60</h>
     </coordinates>
@@ -782,8 +782,8 @@ price: float</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>750</x>
-      <y>690</y>
+      <x>770</x>
+      <y>660</y>
       <w>200</w>
       <h>140</h>
     </coordinates>
@@ -795,8 +795,8 @@ m2=1..*</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>900</x>
-      <y>770</y>
+      <x>920</x>
+      <y>740</y>
       <w>110</w>
       <h>30</h>
     </coordinates>
@@ -806,8 +806,8 @@ m2=1..*</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>490</x>
-      <y>920</y>
+      <x>510</x>
+      <y>890</y>
       <w>130</w>
       <h>60</h>
     </coordinates>
@@ -822,8 +822,8 @@ equipment: int
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>690</x>
-      <y>920</y>
+      <x>710</x>
+      <y>890</y>
       <w>150</w>
       <h>60</h>
     </coordinates>
@@ -837,8 +837,8 @@ price: float
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>820</x>
-      <y>520</y>
+      <x>840</x>
+      <y>490</y>
       <w>60</w>
       <h>470</h>
     </coordinates>
@@ -850,8 +850,8 @@ m2=1</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>170</x>
-      <y>510</y>
+      <x>190</x>
+      <y>480</y>
       <w>340</w>
       <h>470</h>
     </coordinates>
@@ -859,13 +859,13 @@ m2=1</panel_attributes>
 m1=1
 m2=  1
 num</panel_attributes>
-    <additional_attributes>60.0;10.0;10.0;10.0;20.0;440.0;320.0;440.0</additional_attributes>
+    <additional_attributes>60.0;10.0;10.0;10.0;10.0;440.0;320.0;440.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>610</x>
-      <y>940</y>
+      <x>630</x>
+      <y>910</y>
       <w>100</w>
       <h>50</h>
     </coordinates>
@@ -878,8 +878,8 @@ m_id</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>570</x>
-      <y>830</y>
+      <x>590</x>
+      <y>800</y>
       <w>50</w>
       <h>110</h>
     </coordinates>
@@ -891,8 +891,8 @@ m2=1..*</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>320</x>
-      <y>830</y>
+      <x>350</x>
+      <y>800</y>
       <w>200</w>
       <h>80</h>
     </coordinates>
@@ -906,19 +906,19 @@ fixed: boolean/enum/varchar ?</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>510</x>
-      <y>860</y>
-      <w>90</w>
+      <x>540</x>
+      <y>830</y>
+      <w>80</w>
       <h>30</h>
     </coordinates>
     <panel_attributes>lt=.</panel_attributes>
-    <additional_attributes>10.0;10.0;70.0;10.0</additional_attributes>
+    <additional_attributes>10.0;10.0;60.0;10.0</additional_attributes>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>260</x>
-      <y>30</y>
+      <x>280</x>
+      <y>10</y>
       <w>210</w>
       <h>80</h>
     </coordinates>
@@ -932,8 +932,8 @@ amount: price</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>730</x>
-      <y>240</y>
+      <x>750</x>
+      <y>210</y>
       <w>150</w>
       <h>330</h>
     </coordinates>

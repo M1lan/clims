@@ -1,0 +1,2 @@
+2015-07-09 06:04:26|'worked fine'|'1-report.txt'|25.0|1|1
+2015-07-10 12:24:15|'used extra packaging'|'2-report.txt|0.0|2|2

@@ -1,0 +1,13 @@
+\copy employees from 'flat_files/employees.txt' (DELIMITER '|');
+\copy jobs from 'flat_files/job.txt' (DELIMITER '|');
+\copy worked_on from 'flat_files/worked-on.txt' (DELIMITER '|');
+\copy equipment from 'flat_files/equipment.txt' (DELIMITER '|');
+\copy trained_on from 'flat_files/trained-on.txt' (DELIMITER '|');
+\copy maintenience from 'flat_files/maintenience.txt' (DELIMITER '|');
+\copy maintained from 'flat_files/maintained.txt' (DELIMITER '|');
+\copy manufacturing from 'flat_files/manufacturing.txt' (DELIMITER '|');
+\copy equipment_used from 'flat_files/equipment-used.txt' (DELIMITER '|');
+\copy components from 'flat_files/components.txt' (DELIMITER '|');
+\copy elements from 'flat_files/elements.txt' (DELIMITER '|');
+\copy inventory from 'flat_files/inventory.txt' (DELIMITER '|');
+\copy crafting from 'flat_files/crafting.txt' (DELIMITER '|');

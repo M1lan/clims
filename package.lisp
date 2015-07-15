@@ -1,4 +1,6 @@
 ;;;; package.lisp
 
 (defpackage :clims
-  (:use :cl :cl-who :parenscript))
+  (:use :cl
+        :cl-who
+        :postmodern))

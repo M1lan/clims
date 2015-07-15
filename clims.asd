@@ -8,7 +8,8 @@
   :description "An inventory managment system."
   :author "Gaige Pierce-Raison <first name at chatsubo dot net>"
   :license "MIT"
-  :depends-on (:hunchentoot
-               :cl-who
-               :parenscript)
-  :components ((:file "package")))
+  :depends-on (:cl-who
+               :postmodern)
+  :components ((:file "package")
+               (:file "table-view" :depends-on ("package"))
+               ))

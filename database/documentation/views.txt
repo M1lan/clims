@@ -1,0 +1,17 @@
+Views:
+        -entity/specific:
+                employee:       inventory, trained on, jobs worked on, employee table contents(name, addr, salary level, etc)
+                job:            total time, who worked on it, jobs table contents(type(admin, sale, manufacturing, maintenience), completed), expanded info depending on job type.
+                component:      quantity, production processes(crafting), suppliers, buyers, average price in/out, manufacturing jobs with this item, batch #, who has it in inventory/how much, sales, orders, profit margin, for sale or not
+                customer:       sales, customer table contents(address, name, length of time a buyer, etc), who sells to them
+                equipment:      supplier, what it is used in, who is trained on it, manual, maintenience log, if working or not
+                maintenience:   who did it (employee or contracted out), what they worked on, how long, success/failure, if coming back to finish/when
+                order:          supplier, what was in the order, prices, time/date
+                sales:          buyer, what was in the order, prices, time/date, who sold it
+                supplier:       orders, supplier table contents(address, name, length of time a supplier, standing, etc), what they supply (maintenience, equipment, components)
+
+        -table: everything in the table (stats, profit margins, etc)
+        -crafting/manufacturing: from what to what (amounts), manufacturing info(equipment, process instructions, cost(time/money)), average cost, profit margin (total price after-before)
+        -almanac/calendar view: all dated info branching off calendar(orders, sales, jobs worked, etc) stats(money/time, etc)
+        -jobs summary: people working on jobs, what those jobs are, current/past/future(planned)
+        -cash flow view: in and out of money, when, how much, why (sales, manufacturing costs, orders, recurring costs(rent, utilities, etc), payroll)

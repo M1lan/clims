@@ -18,7 +18,7 @@
 
 
 (define-easy-handler (index :uri "/") ()
-  (file-string #p"./login.html"))
+  (file-string #p"./static/login.html"))
 
 (define-easy-handler (safe :uri "/safe") ()
   (if (session-value :logged-in-p)

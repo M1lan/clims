@@ -1,4 +1,0 @@
-1|0|'dumpy'
-2|1|'bumpy'
-3|1|'stumpy'
-4|0|'fuckhead'

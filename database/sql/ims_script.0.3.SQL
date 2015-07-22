@@ -17,7 +17,8 @@ create type "direction" as
 -- table suppliers
 
 create table "suppliers"(
- "supplier_id" bigserial not null
+ "supplier_id" bigserial not null,
+ "name" varchar not null
 )
 ;
 
@@ -48,13 +49,13 @@ alter table "orders" add constraint "key2" primary key ("order_id")
 
 create table "raw_materials"(
  "name" varchar not null,
- "quantity_bought" bigint,
- "cost" bigint,
- "quantity _fresh" bigint,
- "quantity_used_1" bigint,
- "quantity_used_2" bigint,
- "quantity_used_3" bigint,
- "quantity_trashed" bigint,
+ "quantity_bought" bigint not null,
+ "cost" bigint not null,
+ "quantity _fresh" bigint not null,
+ "quantity_used_1" bigint not null,
+ "quantity_used_2" bigint not null,
+ "quantity_used_3" bigint not null,
+ "quantity_trashed" bigint not null,
  "order_id" bigint not null
 )
 ;
@@ -67,7 +68,8 @@ alter table "raw_materials" add constraint "key3" primary key ("order_id","name"
 -- table manufacturing
 
 create table "manufacturing"(
- "batch_id" bigserial not null
+ "batch_id" bigserial not null,
+ "name" varchar not null
 )
 ;
 
@@ -82,8 +84,8 @@ create table "elements"(
  "batch_id" bigint not null,
  "order_id" bigint not null,
  "name" varchar not null,
- "in_out" "direction",
- "quantity" bigint
+ "in_out" "direction" not null,
+ "quantity" bigint not null
 )
 ;
 
@@ -95,10 +97,10 @@ alter table "elements" add constraint "key5" primary key ("batch_id","order_id",
 -- table finished_materials
 
 create table "finished_materials"(
- "quantity_made" bigint,
+ "quantity_made" bigint not null,
  "name" varchar not null,
  "batch_id" bigint not null,
- "quantity_in_stock" bigint
+ "quantity_in_stock" bigint not null
 )
 ;
 
@@ -128,7 +130,8 @@ alter table "sales" add constraint "key7" primary key ("sale_id")
 -- table buyers
 
 create table "buyers"(
- "buyer_id" bigserial not null
+ "buyer_id" bigserial not null,
+ "name" varchar not null
 )
 ;
 
@@ -143,8 +146,8 @@ create table "sold"(
  "name" varchar not null,
  "batch_id" bigint not null,
  "sale_id" bigint not null,
- "quantity_sold" bigint,
- "price" bigint
+ "quantity_sold" bigint not null,
+ "price" bigint not null
 )
 ;
 

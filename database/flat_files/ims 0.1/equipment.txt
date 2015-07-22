@@ -1,4 +1,0 @@
-1|'berry press'|'berry-man.txt'|'distilling snozzberries'
-2|'enchanting table'|'enchant.txt'|'creating eldritch snozzberries'
-3|'vat'|'vat.txt'|'mixing potions'
-4|'table'|'table.txt'|'packaging items'

@@ -1,15 +1,15 @@
-;;;; clims.asd
-(defpackage :clims-system (:use :cl :asdf))
-(in-package :clims-system)
-
-(defsystem :clims
-  :name "clims"
-  :version "0.1.0"
-  :description "An inventory managment system."
+(asdf:defsystem :clims
   :author "Gaige Pierce-Raison <first name at chatsubo dot net>"
   :license "MIT"
-  :depends-on (:cl-who
-               :postmodern)
+  :version "0.1.0"
+  :name "clims"
+  :description "An inventory managment system."
+  :depends-on (#:cl-json
+               #:cl-who
+               #:hunchentoot
+               ;#:postmodern
+               ;#:wookie
+               )
   :components ((:file "package")
-               (:file "table-view" :depends-on ("package"))
-               ))
+               ;(:file "api-server" :depends-on ("package"))
+               (:file "server" :depends-on ("package"))))

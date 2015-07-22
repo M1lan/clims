@@ -11,5 +11,4 @@
                ;#:wookie
                )
   :components ((:file "package")
-               ;(:file "api-server" :depends-on ("package"))
                (:file "server" :depends-on ("package"))))

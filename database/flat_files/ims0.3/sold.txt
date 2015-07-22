@@ -1,4 +1,4 @@
-'lily juice'|1|1|3|21
-'orchid juice'|2|1|1|10
-'lily juice'|1|2|2|10
-'orchid starch'|3|3|1|5
+lily juice|1|1|3|21
+orchid juice|2|1|1|10
+lily juice|1|2|2|10
+orchid starch|3|3|1|5

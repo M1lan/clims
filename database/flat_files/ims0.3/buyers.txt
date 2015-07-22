@@ -1,2 +1,2 @@
-1|'fancy joes flower spray'
-2|'big box store'
+1|fancy joes flower spray
+2|big box store

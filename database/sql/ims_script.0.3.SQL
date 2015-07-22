@@ -8,8 +8,8 @@ database: postgresql 9.4
 
 -- create user data types section -------------------------------------------------
 
-create type "direction" as
- ( enum ('in', 'out') )
+create type "direction" as enum
+ ( 'in', 'out' )
 ;
 
 -- create tables section -------------------------------------------------
@@ -91,7 +91,7 @@ create table "elements"(
 
 -- add keys for table elements
 
-alter table "elements" add constraint "key5" primary key ("batch_id","order_id","name")
+alter table "elements" add constraint "key5" primary key ("batch_id","order_id","name", "in_out")
 ;
 
 -- table finished_materials

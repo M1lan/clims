@@ -1,4 +1,4 @@
-1|'drain lilies'
-2|'drain orchids'
-3|'mash orchids'
-4|'drain lilies'
+1|drain lilies
+2|drain orchids
+3|mash orchids
+4|drain lilies

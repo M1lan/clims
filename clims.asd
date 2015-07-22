@@ -7,8 +7,6 @@
   :depends-on (#:cl-json
                #:cl-who
                #:hunchentoot
-               ;#:postmodern
-               ;#:wookie
                )
   :components ((:file "package")
-               (:file "server" :depends-on ("package"))))
+               (:file "src/server" :depends-on ("package"))))

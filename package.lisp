@@ -3,6 +3,4 @@
         :cl-json
         :cl-who
         :hunchentoot)
-        ;:wookie
-        ;:wookie-plugin-export)
-  (:export :start))
+  (:export :start-server))

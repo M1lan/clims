@@ -1,0 +1,5 @@
+10|'lily juice'|1|5
+5|'lily pulp'|1|5
+3|'orchid juice'|2|3
+1|'orhcid starch'|3|0
+3|'lily juice|4|3

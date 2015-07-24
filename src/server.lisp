@@ -6,54 +6,91 @@
   (with-open-file (stream path)
     (let ((data (make-string (file-length stream))))
       (read-sequence data stream)
-            data)))
+      data)))
 
 (defun authenticate (username password)
-  (declare (ignore username password))
-  t
-  )
+  (and
+   (string= username "gaige@a.com")
+   (string= password "pass")))
 
 (defun generate-shared-secret ()
   (cl-base64:integer-to-base64-string (random (* 10 10))))
 
-
 (define-easy-handler (index :uri "/") ()
-  (file-string #p"./static/login.html"))
-
-(define-easy-handler (safe :uri "/safe") ()
-  (if (session-value :logged-in-p)
-      (format nil "Logged in!: ~a" (session-value :logged-in-p))
-      (format nil "~a : ~a"
-              (session-value :secret)
-              (session-value :logged-in-p))))
+  (when (session-value :logged-in-p *session*)
+    (redirect "/safe"))
+  (with-html-output-to-string (out)
+    (:html
+     (:head
+      (:meta :lisp "awesome")
+      (:meta :charset "UTF-8"))
+     (:body
+      ;; Start of login form
+      (:form :action "/login" :method "POST"
+             (:div :class "form-group"
+                   (:label :for "user-email" "Email Address")
+                   (:input :name "user-email" :type "email" :placeholder "Email"))
+             (:div :class "form-group"
+                   (:label :for "user-password" "Password")
+                   (:input :name "user-password" :type "password" :placeholder "Password"))
+             (:div :class "form-group"
+                   (:label
+                    (:input :name "remember-me-p" :type "checkbox" "Remember?")))
+             (:button :type "submit" :class "btn btn-default" "Submit"))
+      (:script :src "http://crypto-js.googlecode.com/svn/tags/3.1.2/build/rollups/sha256.js")
+      (:script "var hash = CryptoJS.SHA256('Message');")))))
 
 (define-easy-handler (login :uri "/login") ()
   ;; Look into the below link for a protocol (in headers) level way of sending credentials
   ;; http://www.httpwatch.com/httpgallery/authentication/
-  (let ((username (post-parameter "username"))
-        (password (post-parameter "password")))
+  (let ((username (post-parameter "user-email"))
+        (password (post-parameter "user-password")))
+    (hunchentoot:log-message* :info "user-email -> ~a ~% user-password -> ~a" username password)
     (if (authenticate username password)
         (progn
           ;;(setf (hunchentoot:content-type*) "text/html")
           (let ((session (start-session))
                 (shared-secret (generate-shared-secret)))
             ;; Set the shared secret for the session
+            (setf (session-value :username session) username)
             (setf (session-value :secret session) shared-secret)
-            (setf (session-value :logged-in-p session) t))
-          (abort-request-handler)))))
+            (setf (session-value :logged-in-p session) t)
+            ;; this val below gets returned on success, the shared secret
+            (redirect "/api")))
+        ;; instead of abort, should redirect or notify of wrong credentials
+        (redirect "/"))))
 
 (define-easy-handler (logout :uri "/logout") ()
   ;; TODO: Figure out how to refer to \the\ session in the context of a request
   ;; Then I can move on to preventing dup sessions
+  ;; SOLVED: *session* gets the session for a handler's request context
+  (when *session*
+    (remove-session *session*))
+  (redirect "/"))
 
-  ;; Session removal seems to require an identifier for which session. It doesn't remove the active one.
+(define-easy-handler (app :uri "/static/app.js") ()
+  (file-string "static/app.js"))
 
-  ;; Should this completely log the user out?
-  ;; Should there be a way to refresh/kill your api key without logging out?
-  )
+(define-easy-handler (api :uri "/api") ()
+  (when (session-value :logged-in-p)
+    (with-html-output-to-string (out)
+      (:html
+       (:head
+        (:meta :lisp "awesome")
+        (:meta :charset "UTF-8"))
+       (:body
+        (:div :id "messanger"
+              (:code :id "json" "{}"))
+        (:button :type "button" :onclick "request()" "try!")
+        (:script :src "/static/app.js")
+        (:script :src "http://crypto-js.googlecode.com/svn/tags/3.1.2/build/rollups/sha256.js"))))))
+
+(define-easy-handler (p :uri "/p") ()
+  (when (session-value :logged-in-p)
+    (format nil "{some: '~a', id: ~a}" (session-value :secret) (random 100))))
 
 (defun start-server ()
-  (setq hunchentoot:*session-max-time* (* 10 60) ;; 1 minute
+  (setq hunchentoot:*session-max-time* (* 10 60) ;; 10 minute
         hunchentoot:*CATCH-ERRORS-P* t
         hunchentoot:*log-lisp-errors-p* t
         hunchentoot:*log-lisp-backtraces-p* t

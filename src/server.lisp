@@ -69,7 +69,7 @@
   (redirect "/"))
 
 (define-easy-handler (app :uri "/static/app.js") ()
-  (file-string "static/app.js"))
+  (file-string "/home/gaige/lisp/clims/static/app.js"))
 
 (define-easy-handler (api :uri "/api") ()
   (when (session-value :logged-in-p)

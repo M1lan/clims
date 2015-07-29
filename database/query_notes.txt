@@ -1,6 +1,0 @@
-
--query to get quantities sold and prices for finished products given a supplier.  still need to account for a supplier inputting only part of a batch's inputs, right now if that is the case the supplier claims full credit for the finished products.
-       -potential solution:
-       		 when you get the elements from the supplier, check if any other elements were in those batches, if so, divide the output of the batch by the ration of supplier's input/total input.
-		 
-select f.batch_id, f.name, sum(s.quantity_sold), sum(s.price) from (select f.batch_id, f.name, f.quantity_made, f.quantity_in_stock from (select r.name, r.order_id from orders as o, raw_materials as r, suppliers as s where s.supplier_id = o.supplier_id and r.order_id = o.order_id and s.supplier_id = 1) as raw, elements as e, manufacturing as m, finished_materials as f where e.name = raw.name and e.order_id = raw.order_id and e.in_out = 'in' and e.batch_id = m.batch_id and f.batch_id = m.batch_id) as f, sold as s where f.name = s.name and f.batch_id = s.batch_id group by f.batch_id, f.name;

@@ -26,7 +26,7 @@ COMMENT ON EXTENSION plpgsql IS 'PL/pgSQL procedural language';
 SET search_path = public, pg_catalog;
 
 --
--- Name: direction; Type: TYPE; Schema: public; Owner: eric
+-- Name: direction; Type: TYPE; Schema: public; Owner: clims_user
 --
 
 CREATE TYPE direction AS ENUM (
@@ -35,14 +35,14 @@ CREATE TYPE direction AS ENUM (
 );
 
 
-ALTER TYPE direction OWNER TO eric;
+ALTER TYPE direction OWNER TO clims_user;
 
 SET default_tablespace = '';
 
 SET default_with_oids = false;
 
 --
--- Name: buyers; Type: TABLE; Schema: public; Owner: eric; Tablespace: 
+-- Name: buyers; Type: TABLE; Schema: public; Owner: clims_user; Tablespace: 
 --
 
 CREATE TABLE buyers (
@@ -51,10 +51,10 @@ CREATE TABLE buyers (
 );
 
 
-ALTER TABLE buyers OWNER TO eric;
+ALTER TABLE buyers OWNER TO clims_user;
 
 --
--- Name: buyers_buyer_id_seq; Type: SEQUENCE; Schema: public; Owner: eric
+-- Name: buyers_buyer_id_seq; Type: SEQUENCE; Schema: public; Owner: clims_user
 --
 
 CREATE SEQUENCE buyers_buyer_id_seq
@@ -65,17 +65,17 @@ CREATE SEQUENCE buyers_buyer_id_seq
     CACHE 1;
 
 
-ALTER TABLE buyers_buyer_id_seq OWNER TO eric;
+ALTER TABLE buyers_buyer_id_seq OWNER TO clims_user;
 
 --
--- Name: buyers_buyer_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: eric
+-- Name: buyers_buyer_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: clims_user
 --
 
 ALTER SEQUENCE buyers_buyer_id_seq OWNED BY buyers.buyer_id;
 
 
 --
--- Name: elements; Type: TABLE; Schema: public; Owner: eric; Tablespace: 
+-- Name: elements; Type: TABLE; Schema: public; Owner: clims_user; Tablespace: 
 --
 
 CREATE TABLE elements (
@@ -87,10 +87,10 @@ CREATE TABLE elements (
 );
 
 
-ALTER TABLE elements OWNER TO eric;
+ALTER TABLE elements OWNER TO clims_user;
 
 --
--- Name: finished_materials; Type: TABLE; Schema: public; Owner: eric; Tablespace: 
+-- Name: finished_materials; Type: TABLE; Schema: public; Owner: clims_user; Tablespace: 
 --
 
 CREATE TABLE finished_materials (
@@ -101,10 +101,10 @@ CREATE TABLE finished_materials (
 );
 
 
-ALTER TABLE finished_materials OWNER TO eric;
+ALTER TABLE finished_materials OWNER TO clims_user;
 
 --
--- Name: manufacturing; Type: TABLE; Schema: public; Owner: eric; Tablespace: 
+-- Name: manufacturing; Type: TABLE; Schema: public; Owner: clims_user; Tablespace: 
 --
 
 CREATE TABLE manufacturing (
@@ -113,10 +113,10 @@ CREATE TABLE manufacturing (
 );
 
 
-ALTER TABLE manufacturing OWNER TO eric;
+ALTER TABLE manufacturing OWNER TO clims_user;
 
 --
--- Name: manufacturing_batch_id_seq; Type: SEQUENCE; Schema: public; Owner: eric
+-- Name: manufacturing_batch_id_seq; Type: SEQUENCE; Schema: public; Owner: clims_user
 --
 
 CREATE SEQUENCE manufacturing_batch_id_seq
@@ -127,17 +127,17 @@ CREATE SEQUENCE manufacturing_batch_id_seq
     CACHE 1;
 
 
-ALTER TABLE manufacturing_batch_id_seq OWNER TO eric;
+ALTER TABLE manufacturing_batch_id_seq OWNER TO clims_user;
 
 --
--- Name: manufacturing_batch_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: eric
+-- Name: manufacturing_batch_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: clims_user
 --
 
 ALTER SEQUENCE manufacturing_batch_id_seq OWNED BY manufacturing.batch_id;
 
 
 --
--- Name: orders; Type: TABLE; Schema: public; Owner: eric; Tablespace: 
+-- Name: orders; Type: TABLE; Schema: public; Owner: clims_user; Tablespace: 
 --
 
 CREATE TABLE orders (
@@ -146,10 +146,10 @@ CREATE TABLE orders (
 );
 
 
-ALTER TABLE orders OWNER TO eric;
+ALTER TABLE orders OWNER TO clims_user;
 
 --
--- Name: orders_order_id_seq; Type: SEQUENCE; Schema: public; Owner: eric
+-- Name: orders_order_id_seq; Type: SEQUENCE; Schema: public; Owner: clims_user
 --
 
 CREATE SEQUENCE orders_order_id_seq
@@ -160,17 +160,17 @@ CREATE SEQUENCE orders_order_id_seq
     CACHE 1;
 
 
-ALTER TABLE orders_order_id_seq OWNER TO eric;
+ALTER TABLE orders_order_id_seq OWNER TO clims_user;
 
 --
--- Name: orders_order_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: eric
+-- Name: orders_order_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: clims_user
 --
 
 ALTER SEQUENCE orders_order_id_seq OWNED BY orders.order_id;
 
 
 --
--- Name: raw_materials; Type: TABLE; Schema: public; Owner: eric; Tablespace: 
+-- Name: raw_materials; Type: TABLE; Schema: public; Owner: clims_user; Tablespace: 
 --
 
 CREATE TABLE raw_materials (
@@ -186,10 +186,10 @@ CREATE TABLE raw_materials (
 );
 
 
-ALTER TABLE raw_materials OWNER TO eric;
+ALTER TABLE raw_materials OWNER TO clims_user;
 
 --
--- Name: sales; Type: TABLE; Schema: public; Owner: eric; Tablespace: 
+-- Name: sales; Type: TABLE; Schema: public; Owner: clims_user; Tablespace: 
 --
 
 CREATE TABLE sales (
@@ -198,10 +198,10 @@ CREATE TABLE sales (
 );
 
 
-ALTER TABLE sales OWNER TO eric;
+ALTER TABLE sales OWNER TO clims_user;
 
 --
--- Name: sales_sale_id_seq; Type: SEQUENCE; Schema: public; Owner: eric
+-- Name: sales_sale_id_seq; Type: SEQUENCE; Schema: public; Owner: clims_user
 --
 
 CREATE SEQUENCE sales_sale_id_seq
@@ -212,17 +212,17 @@ CREATE SEQUENCE sales_sale_id_seq
     CACHE 1;
 
 
-ALTER TABLE sales_sale_id_seq OWNER TO eric;
+ALTER TABLE sales_sale_id_seq OWNER TO clims_user;
 
 --
--- Name: sales_sale_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: eric
+-- Name: sales_sale_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: clims_user
 --
 
 ALTER SEQUENCE sales_sale_id_seq OWNED BY sales.sale_id;
 
 
 --
--- Name: sold; Type: TABLE; Schema: public; Owner: eric; Tablespace: 
+-- Name: sold; Type: TABLE; Schema: public; Owner: clims_user; Tablespace: 
 --
 
 CREATE TABLE sold (
@@ -234,10 +234,10 @@ CREATE TABLE sold (
 );
 
 
-ALTER TABLE sold OWNER TO eric;
+ALTER TABLE sold OWNER TO clims_user;
 
 --
--- Name: suppliers; Type: TABLE; Schema: public; Owner: eric; Tablespace: 
+-- Name: suppliers; Type: TABLE; Schema: public; Owner: clims_user; Tablespace: 
 --
 
 CREATE TABLE suppliers (
@@ -246,10 +246,10 @@ CREATE TABLE suppliers (
 );
 
 
-ALTER TABLE suppliers OWNER TO eric;
+ALTER TABLE suppliers OWNER TO clims_user;
 
 --
--- Name: suppliers_supplier_id_seq; Type: SEQUENCE; Schema: public; Owner: eric
+-- Name: suppliers_supplier_id_seq; Type: SEQUENCE; Schema: public; Owner: clims_user
 --
 
 CREATE SEQUENCE suppliers_supplier_id_seq
@@ -260,52 +260,52 @@ CREATE SEQUENCE suppliers_supplier_id_seq
     CACHE 1;
 
 
-ALTER TABLE suppliers_supplier_id_seq OWNER TO eric;
+ALTER TABLE suppliers_supplier_id_seq OWNER TO clims_user;
 
 --
--- Name: suppliers_supplier_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: eric
+-- Name: suppliers_supplier_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: clims_user
 --
 
 ALTER SEQUENCE suppliers_supplier_id_seq OWNED BY suppliers.supplier_id;
 
 
 --
--- Name: buyer_id; Type: DEFAULT; Schema: public; Owner: eric
+-- Name: buyer_id; Type: DEFAULT; Schema: public; Owner: clims_user
 --
 
 ALTER TABLE ONLY buyers ALTER COLUMN buyer_id SET DEFAULT nextval('buyers_buyer_id_seq'::regclass);
 
 
 --
--- Name: batch_id; Type: DEFAULT; Schema: public; Owner: eric
+-- Name: batch_id; Type: DEFAULT; Schema: public; Owner: clims_user
 --
 
 ALTER TABLE ONLY manufacturing ALTER COLUMN batch_id SET DEFAULT nextval('manufacturing_batch_id_seq'::regclass);
 
 
 --
--- Name: order_id; Type: DEFAULT; Schema: public; Owner: eric
+-- Name: order_id; Type: DEFAULT; Schema: public; Owner: clims_user
 --
 
 ALTER TABLE ONLY orders ALTER COLUMN order_id SET DEFAULT nextval('orders_order_id_seq'::regclass);
 
 
 --
--- Name: sale_id; Type: DEFAULT; Schema: public; Owner: eric
+-- Name: sale_id; Type: DEFAULT; Schema: public; Owner: clims_user
 --
 
 ALTER TABLE ONLY sales ALTER COLUMN sale_id SET DEFAULT nextval('sales_sale_id_seq'::regclass);
 
 
 --
--- Name: supplier_id; Type: DEFAULT; Schema: public; Owner: eric
+-- Name: supplier_id; Type: DEFAULT; Schema: public; Owner: clims_user
 --
 
 ALTER TABLE ONLY suppliers ALTER COLUMN supplier_id SET DEFAULT nextval('suppliers_supplier_id_seq'::regclass);
 
 
 --
--- Data for Name: buyers; Type: TABLE DATA; Schema: public; Owner: eric
+-- Data for Name: buyers; Type: TABLE DATA; Schema: public; Owner: clims_user
 --
 
 COPY buyers (buyer_id, name) FROM stdin;
@@ -315,14 +315,14 @@ COPY buyers (buyer_id, name) FROM stdin;
 
 
 --
--- Name: buyers_buyer_id_seq; Type: SEQUENCE SET; Schema: public; Owner: eric
+-- Name: buyers_buyer_id_seq; Type: SEQUENCE SET; Schema: public; Owner: clims_user
 --
 
 SELECT pg_catalog.setval('buyers_buyer_id_seq', 1, false);
 
 
 --
--- Data for Name: elements; Type: TABLE DATA; Schema: public; Owner: eric
+-- Data for Name: elements; Type: TABLE DATA; Schema: public; Owner: clims_user
 --
 
 COPY elements (batch_id, order_id, name, in_out, quantity) FROM stdin;
@@ -340,7 +340,7 @@ COPY elements (batch_id, order_id, name, in_out, quantity) FROM stdin;
 
 
 --
--- Data for Name: finished_materials; Type: TABLE DATA; Schema: public; Owner: eric
+-- Data for Name: finished_materials; Type: TABLE DATA; Schema: public; Owner: clims_user
 --
 
 COPY finished_materials (quantity_made, name, batch_id, quantity_in_stock) FROM stdin;
@@ -353,7 +353,7 @@ COPY finished_materials (quantity_made, name, batch_id, quantity_in_stock) FROM 
 
 
 --
--- Data for Name: manufacturing; Type: TABLE DATA; Schema: public; Owner: eric
+-- Data for Name: manufacturing; Type: TABLE DATA; Schema: public; Owner: clims_user
 --
 
 COPY manufacturing (batch_id, name) FROM stdin;
@@ -365,14 +365,14 @@ COPY manufacturing (batch_id, name) FROM stdin;
 
 
 --
--- Name: manufacturing_batch_id_seq; Type: SEQUENCE SET; Schema: public; Owner: eric
+-- Name: manufacturing_batch_id_seq; Type: SEQUENCE SET; Schema: public; Owner: clims_user
 --
 
 SELECT pg_catalog.setval('manufacturing_batch_id_seq', 1, false);
 
 
 --
--- Data for Name: orders; Type: TABLE DATA; Schema: public; Owner: eric
+-- Data for Name: orders; Type: TABLE DATA; Schema: public; Owner: clims_user
 --
 
 COPY orders (order_id, supplier_id) FROM stdin;
@@ -383,14 +383,14 @@ COPY orders (order_id, supplier_id) FROM stdin;
 
 
 --
--- Name: orders_order_id_seq; Type: SEQUENCE SET; Schema: public; Owner: eric
+-- Name: orders_order_id_seq; Type: SEQUENCE SET; Schema: public; Owner: clims_user
 --
 
 SELECT pg_catalog.setval('orders_order_id_seq', 1, false);
 
 
 --
--- Data for Name: raw_materials; Type: TABLE DATA; Schema: public; Owner: eric
+-- Data for Name: raw_materials; Type: TABLE DATA; Schema: public; Owner: clims_user
 --
 
 COPY raw_materials (name, quantity_bought, cost, "quantity _fresh", quantity_used_1, quantity_used_2, quantity_used_3, quantity_trashed, order_id) FROM stdin;
@@ -402,7 +402,7 @@ lilies	8	2	3	5	0	0	0	2
 
 
 --
--- Data for Name: sales; Type: TABLE DATA; Schema: public; Owner: eric
+-- Data for Name: sales; Type: TABLE DATA; Schema: public; Owner: clims_user
 --
 
 COPY sales (sale_id, buyer_id) FROM stdin;
@@ -413,14 +413,14 @@ COPY sales (sale_id, buyer_id) FROM stdin;
 
 
 --
--- Name: sales_sale_id_seq; Type: SEQUENCE SET; Schema: public; Owner: eric
+-- Name: sales_sale_id_seq; Type: SEQUENCE SET; Schema: public; Owner: clims_user
 --
 
 SELECT pg_catalog.setval('sales_sale_id_seq', 1, false);
 
 
 --
--- Data for Name: sold; Type: TABLE DATA; Schema: public; Owner: eric
+-- Data for Name: sold; Type: TABLE DATA; Schema: public; Owner: clims_user
 --
 
 COPY sold (name, batch_id, sale_id, quantity_sold, price) FROM stdin;
@@ -432,7 +432,7 @@ orchid starch	3	3	1	5
 
 
 --
--- Data for Name: suppliers; Type: TABLE DATA; Schema: public; Owner: eric
+-- Data for Name: suppliers; Type: TABLE DATA; Schema: public; Owner: clims_user
 --
 
 COPY suppliers (supplier_id, name) FROM stdin;
@@ -442,14 +442,14 @@ COPY suppliers (supplier_id, name) FROM stdin;
 
 
 --
--- Name: suppliers_supplier_id_seq; Type: SEQUENCE SET; Schema: public; Owner: eric
+-- Name: suppliers_supplier_id_seq; Type: SEQUENCE SET; Schema: public; Owner: clims_user
 --
 
 SELECT pg_catalog.setval('suppliers_supplier_id_seq', 1, false);
 
 
 --
--- Name: key1; Type: CONSTRAINT; Schema: public; Owner: eric; Tablespace: 
+-- Name: key1; Type: CONSTRAINT; Schema: public; Owner: clims_user; Tablespace: 
 --
 
 ALTER TABLE ONLY suppliers
@@ -457,7 +457,7 @@ ALTER TABLE ONLY suppliers
 
 
 --
--- Name: key2; Type: CONSTRAINT; Schema: public; Owner: eric; Tablespace: 
+-- Name: key2; Type: CONSTRAINT; Schema: public; Owner: clims_user; Tablespace: 
 --
 
 ALTER TABLE ONLY orders
@@ -465,7 +465,7 @@ ALTER TABLE ONLY orders
 
 
 --
--- Name: key3; Type: CONSTRAINT; Schema: public; Owner: eric; Tablespace: 
+-- Name: key3; Type: CONSTRAINT; Schema: public; Owner: clims_user; Tablespace: 
 --
 
 ALTER TABLE ONLY raw_materials
@@ -473,7 +473,7 @@ ALTER TABLE ONLY raw_materials
 
 
 --
--- Name: key4; Type: CONSTRAINT; Schema: public; Owner: eric; Tablespace: 
+-- Name: key4; Type: CONSTRAINT; Schema: public; Owner: clims_user; Tablespace: 
 --
 
 ALTER TABLE ONLY manufacturing
@@ -481,7 +481,7 @@ ALTER TABLE ONLY manufacturing
 
 
 --
--- Name: key5; Type: CONSTRAINT; Schema: public; Owner: eric; Tablespace: 
+-- Name: key5; Type: CONSTRAINT; Schema: public; Owner: clims_user; Tablespace: 
 --
 
 ALTER TABLE ONLY elements
@@ -489,7 +489,7 @@ ALTER TABLE ONLY elements
 
 
 --
--- Name: key6; Type: CONSTRAINT; Schema: public; Owner: eric; Tablespace: 
+-- Name: key6; Type: CONSTRAINT; Schema: public; Owner: clims_user; Tablespace: 
 --
 
 ALTER TABLE ONLY finished_materials
@@ -497,7 +497,7 @@ ALTER TABLE ONLY finished_materials
 
 
 --
--- Name: key7; Type: CONSTRAINT; Schema: public; Owner: eric; Tablespace: 
+-- Name: key7; Type: CONSTRAINT; Schema: public; Owner: clims_user; Tablespace: 
 --
 
 ALTER TABLE ONLY sales
@@ -505,7 +505,7 @@ ALTER TABLE ONLY sales
 
 
 --
--- Name: key8; Type: CONSTRAINT; Schema: public; Owner: eric; Tablespace: 
+-- Name: key8; Type: CONSTRAINT; Schema: public; Owner: clims_user; Tablespace: 
 --
 
 ALTER TABLE ONLY buyers
@@ -513,7 +513,7 @@ ALTER TABLE ONLY buyers
 
 
 --
--- Name: key9; Type: CONSTRAINT; Schema: public; Owner: eric; Tablespace: 
+-- Name: key9; Type: CONSTRAINT; Schema: public; Owner: clims_user; Tablespace: 
 --
 
 ALTER TABLE ONLY sold
@@ -521,21 +521,21 @@ ALTER TABLE ONLY sold
 
 
 --
--- Name: ix_relationship3; Type: INDEX; Schema: public; Owner: eric; Tablespace: 
+-- Name: ix_relationship3; Type: INDEX; Schema: public; Owner: clims_user; Tablespace: 
 --
 
 CREATE INDEX ix_relationship3 ON orders USING btree (supplier_id);
 
 
 --
--- Name: ix_relationship8; Type: INDEX; Schema: public; Owner: eric; Tablespace: 
+-- Name: ix_relationship8; Type: INDEX; Schema: public; Owner: clims_user; Tablespace: 
 --
 
 CREATE INDEX ix_relationship8 ON sales USING btree (buyer_id);
 
 
 --
--- Name: batch; Type: FK CONSTRAINT; Schema: public; Owner: eric
+-- Name: batch; Type: FK CONSTRAINT; Schema: public; Owner: clims_user
 --
 
 ALTER TABLE ONLY elements
@@ -543,7 +543,7 @@ ALTER TABLE ONLY elements
 
 
 --
--- Name: buyer; Type: FK CONSTRAINT; Schema: public; Owner: eric
+-- Name: buyer; Type: FK CONSTRAINT; Schema: public; Owner: clims_user
 --
 
 ALTER TABLE ONLY sales
@@ -551,7 +551,7 @@ ALTER TABLE ONLY sales
 
 
 --
--- Name: item_in_out; Type: FK CONSTRAINT; Schema: public; Owner: eric
+-- Name: item_in_out; Type: FK CONSTRAINT; Schema: public; Owner: clims_user
 --
 
 ALTER TABLE ONLY elements
@@ -559,7 +559,7 @@ ALTER TABLE ONLY elements
 
 
 --
--- Name: order_items; Type: FK CONSTRAINT; Schema: public; Owner: eric
+-- Name: order_items; Type: FK CONSTRAINT; Schema: public; Owner: clims_user
 --
 
 ALTER TABLE ONLY raw_materials
@@ -567,7 +567,7 @@ ALTER TABLE ONLY raw_materials
 
 
 --
--- Name: output; Type: FK CONSTRAINT; Schema: public; Owner: eric
+-- Name: output; Type: FK CONSTRAINT; Schema: public; Owner: clims_user
 --
 
 ALTER TABLE ONLY finished_materials
@@ -575,7 +575,7 @@ ALTER TABLE ONLY finished_materials
 
 
 --
--- Name: sale; Type: FK CONSTRAINT; Schema: public; Owner: eric
+-- Name: sale; Type: FK CONSTRAINT; Schema: public; Owner: clims_user
 --
 
 ALTER TABLE ONLY sold
@@ -583,7 +583,7 @@ ALTER TABLE ONLY sold
 
 
 --
--- Name: sale_items; Type: FK CONSTRAINT; Schema: public; Owner: eric
+-- Name: sale_items; Type: FK CONSTRAINT; Schema: public; Owner: clims_user
 --
 
 ALTER TABLE ONLY sold
@@ -591,7 +591,7 @@ ALTER TABLE ONLY sold
 
 
 --
--- Name: supplier; Type: FK CONSTRAINT; Schema: public; Owner: eric
+-- Name: supplier; Type: FK CONSTRAINT; Schema: public; Owner: clims_user
 --
 
 ALTER TABLE ONLY orders

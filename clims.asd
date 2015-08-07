@@ -7,6 +7,11 @@
   :depends-on (#:cl-json
                #:cl-who
                #:hunchentoot
+	       #:ironclad
+	       #:log4cl
+	       #:postmodern
+	       #:s-base64
                )
   :components ((:file "package")
-               (:file "src/server" :depends-on ("package"))))
+               (:file "src/server" :depends-on ("package"))
+	       (:file "src/api" :depends-on ("src/server"))))

@@ -2,5 +2,9 @@
   (:use :cl
         :cl-json
         :cl-who
-        :hunchentoot)
-  (:export :start-server))
+        :hunchentoot
+	:log4cl
+	:postmodern)
+  (:export :start-server
+	   :stop-server
+	   :restart-server))

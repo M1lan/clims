@@ -1,30 +1,36 @@
-(defun api-request (method)
+(ql:quickload :drakma)
+(ql:quickload :cl-json)
+(ql:quickload :s-base64)
+(ql:quickload :ironclad)
+
+(defun sign-request (method json-params shared-secret)
+  (log:debug json-params shared-secret)
+  (let ((hmac (ironclad:make-hmac (sb-ext:string-to-octets shared-secret)
+                                  'ironclad:SHA1)))
+    (ironclad:update-hmac hmac (sb-ext:string-to-octets method))
+    (ironclad:update-hmac hmac (sb-ext:string-to-octets shared-secret))
+    (ironclad:update-hmac hmac (sb-ext:string-to-octets json-params))
+    (with-output-to-string (out)
+      (s-base64:encode-base64-bytes (ironclad:hmac-digest hmac) out nil))))
+
+(defun api-request (method params)
+  (log:error (json:encode-json-to-string (cdr (assoc "params" params :test 'string=))))
   (let* ((cookie-jar (make-instance 'drakma:cookie-jar))
-	 (shared-secret "secret")
-	 (hmac (ironclad:make-hmac (sb-ext:string-to-octets shared-secret) 'ironclad:SHA1))
-	 (message "{\"text\":\"hello\"}")
-	 (digest (progn
-		   (ironclad:update-hmac hmac (sb-ext:string-to-octets method))
-		   (ironclad:update-hmac hmac (sb-ext:string-to-octets shared-secret))
-		   (ironclad:update-hmac hmac (sb-ext:string-to-octets message))
-		   (with-output-to-string (out)
-		     (s-base64:encode-base64-bytes (ironclad:hmac-digest hmac) out nil)))))
-    ;; get a cookie
-    (drakma:http-request "http://localhost:8000/login"
+	 (shared-secret (drakma:http-request "http://localhost:8000/login" 
+					     :method :post
+					     :content-type "text/json"
+					     :parameters  '(("username" . "admint@test.com")
+							    ("password" . "pass"))
+					     :cookie-jar cookie-jar))
+	 (json-params (json:encode-json-to-string params))
+	 (digest (sign-request 
+		  method 
+		  (json:encode-json-to-string (cdr (assoc "params" params :test 'string=)) )
+		  shared-secret)))
+    (log:info shared-secret digest json-params)
+    (drakma:http-request "http://localhost:8000/_api"
 			 :method :post
-			 :basic-authorization '("admin@test.com" "pass")
-			 :parameters '(("username" . "admin@test.com")
-				       ("password" . "pass"))
-			 :cookie-jar cookie-jar)
-    ;; make api request
-    (log:info (drakma:http-request "http://localhost:8000/_api"
-				   :method :post
-				   :content-type "application/json"
-				   :additional-headers `((:signiture ,digest))
-				   :content (json:encode-json-to-string `(("method" . ,method)
-									  ("params"  ("text" . "hello"))
-									  ("id" . 1)
-									  ("jsonrpc" . "2.0")))
-				   :cookie-jar cookie-jar))
-    ; what was the signiture we sent
-    (log:info "~A" digest)))
+			 :additional-headers `(("signiture" . ,digest))
+			 :content-type "text/json"
+			 :content json-params
+			 :cookie-jar cookie-jar)))

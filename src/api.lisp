@@ -9,7 +9,6 @@
 	 `((:text . ,raw-val)))))
 
 (json-rpc::defun-json-rpc echo :guessing (text)
-  (log:debug "in echo for ~A" text)
   ;; (unless (stringp text)
   ;;   (invoke-restart
   ;;    'json-rpc::send-error
@@ -17,14 +16,8 @@
   (log:info (cdr text))
   (cdr text))
 
-(json-rpc::defun-json-rpc table :guessing (table-name)
-  (log:error "ASD" table-name))
-
 (json-rpc::defun-json-rpc authenticate :guessing (username password)
   (log:info "In authenticate ~a ~a" (cdr username) (cdr password))
-  ;; TODO: Lookup user with username.
-  ;;       With user's salt, determine if password is correct.
-  ;;       create session, generate shared-secret for hmac, etc
   (let* ((user-salt "super-random")
 	 (user-hashed-password "mMAzwqGbJGxkaRDT9ZojKv5yqllCW54nrk+aoveorrk=")
 	 (password (cdr password))
@@ -48,7 +41,7 @@
     (json-bind (method params id) json-source
       (if (not (and method params id signiture (session-value :logged-in-p)))
 	  (progn
-	    (log:error method params id signiture
+	    (log:error method params id signiture (session-value :logged-in-p)
 		       "Invalid parameters.")
 	    (setf (hunchentoot:content-type* hunchentoot::*reply*)
 		  "text/json")
@@ -64,7 +57,7 @@
 	  (handler-case
 	      (progn
 		(let ((json-params (json:encode-json-to-string params)))
-		    (invoke-auth-rpc method json-params id (session-value :shared-secret) signiture)))
+		  (invoke-auth-rpc method json-params id (session-value :shared-secret) signiture)))
 	    (error (c)
 	      (log:error method id signiture
 			 (format nil "unknown_error: ~A" c))
@@ -83,6 +76,7 @@
 
 (defun invoke-auth-rpc (method json-params id shared-secret signiture)
   (let ((signiture (remove #\( (remove #\) signiture))))
+    (log:debug json-params)
     (cond ((not (equal signiture
 		       (sign-request method json-params shared-secret)))
 	   (log:error "failed to verify message." method json-params signiture)
@@ -101,7 +95,6 @@
 	     (json-rpc::invoke-rpc-parsed method params id))))))
 
 (defun sign-request (method json-params shared-secret)
-  (log:warn json-params)
   (let ((hmac (ironclad:make-hmac (sb-ext:string-to-octets shared-secret)
                                   'ironclad:SHA1)))
     (ironclad:update-hmac hmac (sb-ext:string-to-octets method))

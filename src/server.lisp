@@ -3,25 +3,26 @@
 (defvar *api-server* nil)
 
 (defun auth (username password)
+  t)
   (and
    (string= username "admin@test.com")
    (string= password "pass")))
 
 (define-easy-handler (login :uri "/login") ()
-  ;; Look into the below link for a protocol (in headers) level way of sending credentials
-  ;; http://www.httpwatch.com/httpgallery/
   (let ((username (post-parameter "username"))
         (password (post-parameter "password")))
+    (log:info username password)
     (if (auth username password)
 	(let ((shared-secret "secret"))
 	  (setf (session-value :shared-secret *session*) shared-secret)
 	  (setf (session-value :username *session*) username)
 	  (setf (session-value :logged-in-p *session*) t)
-	  (setf (hunchentoot:content-type*) "application/json")
-	  ;; The share secret needs to be returned, in app.html, render it into something
-	  (redirect "/app.html")))
-    ;; instead of abort, should redirect or notify of wrong credentials
-    (redirect "/")))
+	  ;; The share secret needs to be returned
+	  (setf (hunchentoot:content-type*) "text/plain")
+ 	  (log:info "authed!" shared-secret (session-value :logged-in-p))
+	  shared-secret)
+	;; or they get nothing!
+	nil)))
 
 (define-easy-handler (logout :uri "/logout") ()
   (when *session*

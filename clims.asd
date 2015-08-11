@@ -13,5 +13,5 @@
 	       #:s-base64
                )
   :components ((:file "package")
-               (:file "src/server" :depends-on ("package"))
-	       (:file "src/api" :depends-on ("src/server"))))
+               (:file "src/api" :depends-on ("package"))
+	       (:file "src/server" :depends-on ("src/api"))))

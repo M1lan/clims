@@ -1,5 +1,5 @@
 (asdf:defsystem :clims
-  :author "Gaige Pierce-Raison <first name at chatsubo dot net>"
+  :author "Gaige Pierce-Raison, Eric Clark"
   :license "MIT"
   :version "0.1.0"
   :name "clims"
@@ -13,5 +13,6 @@
 	       #:s-base64
                )
   :components ((:file "package")
-               (:file "src/api" :depends-on ("package"))
-	       (:file "src/server" :depends-on ("src/api"))))
+               (:file "src/server" :depends-on ("package"))
+	       (:file "src/api" :depends-on ("src/server"))
+	       (:file "src/queries" :depends-on ("src/server"))))

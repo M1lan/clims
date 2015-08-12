@@ -3,7 +3,6 @@
 (defvar *api-server* nil)
 
 (defun auth (username password)
-  t)
   (and
    (string= username "admin@test.com")
    (string= password "pass")))

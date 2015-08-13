@@ -39,7 +39,7 @@
   (let ((json-source (flexi-streams:octets-to-string (raw-post-data)))
 	(signiture (hunchentoot:header-in* :signiture)))
     (json-bind (method params id) json-source
-      (if (not (and method params id signiture (session-value :logged-in-p)))
+      (if (not (and method params id signiture (session-value :logged-in-p *session*)))
 	  (progn
 	    (log:error method params id signiture (session-value :logged-in-p)
 		       "Invalid parameters.")
@@ -76,7 +76,6 @@
 
 (defun invoke-auth-rpc (method json-params id shared-secret signiture)
   (let ((signiture (remove #\( (remove #\) signiture))))
-    (log:debug json-params)
     (cond ((not (equal signiture
 		       (sign-request method json-params shared-secret)))
 	   (log:error "failed to verify message." method json-params signiture)
@@ -95,10 +94,10 @@
 	     (json-rpc::invoke-rpc-parsed method params id))))))
 
 (defun sign-request (method json-params shared-secret)
+  (log:error json-params)
   (let ((hmac (ironclad:make-hmac (sb-ext:string-to-octets shared-secret)
-                                  'ironclad:SHA1)))
+				  'ironclad:SHA256)))
     (ironclad:update-hmac hmac (sb-ext:string-to-octets method))
-    (ironclad:update-hmac hmac (sb-ext:string-to-octets shared-secret))
     (ironclad:update-hmac hmac (sb-ext:string-to-octets json-params))
     (with-output-to-string (out)
       (s-base64:encode-base64-bytes (ironclad:hmac-digest hmac) out nil))))

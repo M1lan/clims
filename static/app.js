@@ -1,27 +1,41 @@
-var httpRequest;
+// Retreive shared secret
+var secret = "";
+var view = document.getElementById("main");
 
-function request() {
-    httpRequest = new XMLHttpRequest();
-    var url = "/p";
+function init() {
+    document.getElementById("main").innerHTML = "<h1>whatup?</h1>";
 
-    if (!httpRequest) {
-        alert('Giving up :( Cannot create an XMLHTTP instance');
-        return false;
-    }
+    var params = {
+	method: "echo",
+	id: 1,
+	params: {text: "howdy!"}
+    };
 
-    httpRequest.onreadystatechange = alertContents;
-    httpRequest.open('GET', url);
-    httpRequest.send();
+    var hash = CryptoJS.HmacSHA256("echo" + JSON.stringify(params.params), "secret");
+    var hashInBase64 = CryptoJS.enc.Base64.stringify(hash);
+    console.log("client signiture: ", hashInBase64);
+
+    request(params, hashInBase64);
+
 }
 
-function alertContents() {
-    if (httpRequest.readyState === 4) {
-        if (httpRequest.status === 200) {
-            var j = httpRequest.responseText;
-            document.getElementById('json').innerHTML = j;
-            //alert(httpRequest.responseText);
-        } else {
-            alert('There was a problem with the request.');
-        }
-    }
+function request(params, hash) {
+    var xhr = new XMLHttpRequest();
+
+    xhr.open("POST", "/_api");
+    xhr.setRequestHeader("Content-Type", "application/json");
+
+    xhr.setRequestHeader("signiture", hash);
+
+    xhr.onload = function() {
+	if (xhr.status === 200) {
+
+	    var data = JSON.parse(xhr.response);
+	    console.log("api response: ", xhr.response);
+	} else {
+	    console.log(xhr.status);
+	}
+    };
+
+    xhr.send(JSON.stringify(params));
 }

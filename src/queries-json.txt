@@ -1,0 +1,12 @@
+handle-manufacturing
+	outputs: array of "{\"name\":\"name-str\",\"quantityMade\":0}"
+	inputs: array of "{\"name\":\"name-str\",\"orderId\":0,\"amountUsed\":0,\"quantityUsed\":{\"quantityFresh\":0,\"quantityUsed1\":0,\"quantityUsed2\":0,\"quantityUsed3\":0,\"quantityTrashed\":0},\"quantityReturned\":{\"quantityFresh\":0,\"quantityUsed1\":0,\"quantityUsed2\":0,\"quantityUsed3\":0,\"quantityTrashed\":0}}"
+	batch-name: "{\"batchName\":[\"batch-name\"]}"
+
+handle-order
+	materials: array of "{\"name\":\"name-str\",\"quantity\":0,\"cost\":0}"
+	supplier: "{\"supplierId\":0}"
+
+handle-sale
+	materials: array of "{\"name\":\"name-str\",\"batchId\":0,\"quantity\":0,\"price\":0}"
+	buyer: "{\"buyerId\":0}"

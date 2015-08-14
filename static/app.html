@@ -6,27 +6,60 @@
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
 
+    <script src="http://cdn.ractivejs.org/latest/ractive.min.js"></script>
     <script src="http://crypto-js.googlecode.com/svn/tags/3.1.2/build/rollups/hmac-sha256.js"></script>
     <script src="http://crypto-js.googlecode.com/svn/tags/3.0.2/build/components/enc-base64-min.js"></script>
 
+    <script src="/reqwest.js" type="text/javascript"></script>
     <script src="/app.js" type="text/javascript"></script>
+
   </head>
 
   <body>
 
-    <ul class="nav nav-pills nav-stacked">
-      <li role="presentation" class="active"><a href="/">Home</a></li>
-    </ul>
+    <nav class="col-md-2">
+      <ul class="nav nav-pills nav-stacked">
+	<li role="presentation" class="active"><a href="/">Home</a></li>
+	<!--<li><a href="/">Somewhere</a></li>-->
+	<li><a href="/logout">Logout</a></li>
+      </ul>
+    </nav>
 
-    <h1>Welcome to clims</h1>
+    <div id="main"></div>
 
-    <div id="main">
-    </div>
-	
-	
+    <script id="table-template" type="text/ractive">
+      <div class="col-md-8">
+	<table class="table table-hover">
+	  <thead>
+	    <tr>
+	      {{#each columns:c}}
+	      <th>{{this}}</th>
+	      {{/each}}
+	    </tr>
+	  </thead>
+	  <tbody>
+	    {{#each rows:r}}
+  	    <tr>
+	      <td>{{rows[r].name}}</td>
+	      <td>{{rows[r].quantityBought}}</td>
+	      <td>{{rows[r].cost}}</td>
+	      <td>{{rows[r].quantityFresh}}</td>
+	      <td>{{rows[r].quantityUsed1}}</td>
+	      <td>{{rows[r].quantityUsed2}}</td>
+	      <td>{{rows[r].quantityUsed3}}</td>
+	      <td>{{rows[r].quantityTrashed}}</td>
+	      <td>{{rows[r].orderId}}</td>
+  	    </tr>
+	    {{/each}}
+	  </tbody>
+	</table>
+      </div>
+    </script>
+
     <script type="text/javascript">
       window.onload = init;
     </script>
+
   </body>
 </html>
 <!--

@@ -16,6 +16,9 @@
   (log:info (cdr text))
   (cdr text))
 
+(json-rpc::defun-json-rpc table :table (name)
+  (table-as-list (cdr name)))
+
 (json-rpc::defun-json-rpc authenticate :guessing (username password)
   (log:info "In authenticate ~a ~a" (cdr username) (cdr password))
   (let* ((user-salt "super-random")
@@ -56,6 +59,8 @@
 	       ("id" . ,id))))
 	  (handler-case
 	      (progn
+		(setf (hunchentoot:content-type* hunchentoot::*reply*)
+		  "text/json")
 		(let ((json-params (json:encode-json-to-string params)))
 		  (invoke-auth-rpc method json-params id (session-value :shared-secret) signiture)))
 	    (error (c)
@@ -90,11 +95,9 @@
 	  (t
 	   ;; call invoke-rpc-parsed
 	   (let ((params (json:decode-json-from-string json-params)))
-	     (log:info method id params signiture)
 	     (json-rpc::invoke-rpc-parsed method params id))))))
 
 (defun sign-request (method json-params shared-secret)
-  (log:error json-params)
   (let ((hmac (ironclad:make-hmac (sb-ext:string-to-octets shared-secret)
 				  'ironclad:SHA256)))
     (ironclad:update-hmac hmac (sb-ext:string-to-octets method))

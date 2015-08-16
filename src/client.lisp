@@ -22,9 +22,7 @@
 					       :parameters  '(("username" . "admin@test.com")
 							      ("password" . "pass"))
 					       :cookie-jar cookie-jar)
-			  (drakma:http-request "http://localhost:8000/key"
-					       :method :get
-					       :cookie-jar cookie-jar)))
+			  "secret"))
 	 (json-params (json:encode-json-to-string params))
 	 (digest (sign-request
 		  method

@@ -10,12 +10,12 @@
 (define-easy-handler (index :uri "/") ()
   (when (session-value :logged-in-p *session*)
     (redirect "/ims"))
-  (handle-static-file "/home/gaige/clims/static/index.html"))
+  (handle-static-file "/home/gaige/clims/static/login.html"))
 
 (define-easy-handler (ims :uri "/ims") ()
   (unless (session-value :logged-in-p *session*)
     (redirect "/"))
-  (handle-static-file "/home/gaige/clims/static/app.html"))
+  (handle-static-file "/home/gaige/clims/static/dashboard.html"))
 
 (define-easy-handler (login :uri "/login") ()
   (let ((username (post-parameter "username"))

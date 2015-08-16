@@ -19,7 +19,7 @@
 			  (drakma:http-request "http://localhost:8000/login"
 					       :method :post
 					       :content-type "text/json"
-					       :parameters  '(("username" . "admint@test.com")
+					       :parameters  '(("username" . "admin@test.com")
 							      ("password" . "pass"))
 					       :cookie-jar cookie-jar)
 			  (drakma:http-request "http://localhost:8000/key"

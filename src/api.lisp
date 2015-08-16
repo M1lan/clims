@@ -1,48 +1,5 @@
 (in-package :clims)
 
-(defun generate-shared-secret ()
-  "secret")
-
-(json-rpc::def-json-rpc-encoding :echo (raw-val)
-  (list :json
-	(json:encode-json-to-string
-	 `((:text . ,raw-val)))))
-
-(json-rpc::def-json-rpc-encoding :table (raw-val)
-  (list :json
-	(json:encode-json-alist-to-string ; try encode-json-alist-to-string	 
-	 raw-val)))
-
-(json-rpc::defun-json-rpc echo :echo (text)
-  ;; (unless (stringp text)
-  ;;   (invoke-restart
-  ;;    'json-rpc::send-error
-  ;;    (format nil "JSON handler error! Input: '~A' should be a string" text) 99))
-  (log:info (cdr text))
-  (cdr text))
-
-(json-rpc::defun-json-rpc table :table (name)
-  (table-as-list (cdr name)))
-
-(json-rpc::defun-json-rpc authenticate :guessing (username password)
-  (log:info "In authenticate ~a ~a" (cdr username) (cdr password))
-  (let* ((user-salt "super-random")
-	 (user-hashed-password "mMAzwqGbJGxkaRDT9ZojKv5yqllCW54nrk+aoveorrk=")
-	 (password (cdr password))
-	 (digester (ironclad:make-digest :sha256))
-	 (hashed-result (progn
-			  (ironclad:update-digest digester (sb-ext:string-to-octets password))
-			  (ironclad:update-digest digester (sb-ext:string-to-octets user-salt))
-			  (with-output-to-string (out)
-			    (s-base64:encode-base64-bytes
-			     (ironclad:produce-digest digester) out nil)))))
-    (unless (string= hashed-result user-hashed-password)
-      (invoke-restart
-       'json-rpc::send-error
-       (format nil "failed to authenticate user ~A." (cdr username))))
-    ;; upon success return a new shared-secret
-    (generate-shared-secret)))
-
 (defun json-rpc-handler ()
   (let ((json-source (flexi-streams:octets-to-string (raw-post-data)))
 	(signiture (hunchentoot:header-in* :signiture)))

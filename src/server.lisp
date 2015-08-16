@@ -10,12 +10,12 @@
 (define-easy-handler (index :uri "/") ()
   (when (session-value :logged-in-p *session*)
     (redirect "/ims"))
-  (handle-static-file "/home/gaige/clims/static/login.html"))
+  (handle-static-file "static/login.html"))
 
 (define-easy-handler (ims :uri "/ims") ()
   (unless (session-value :logged-in-p *session*)
     (redirect "/"))
-  (handle-static-file "/home/gaige/clims/static/dashboard.html"))
+  (handle-static-file "static/dashboard.html"))
 
 (define-easy-handler (login :uri "/login") ()
   (let ((username (post-parameter "username"))
@@ -31,22 +31,10 @@
 	;; or they get nothing!
 	(redirect "/"))))
 
-(define-easy-handler (key :uri "/key") ()
-  (log:debug (session-value :shared-secret *session*))
-  (when *session*
-    (session-value :shared-secret *session*)))
-
 (define-easy-handler (logout :uri "/logout") ()
   (when *session*
     (remove-session *session*))
   (redirect "/"))
-
-(define-easy-handler (apiz :uri "/api") ()
-  (redirect "/")
-  (setf (content-type*) "text/json")
-  (let ((data (json:decode-json-from-string (flexi-streams:octets-to-string (raw-post-data)))))
-    (declare (ignore data))
-    (invoke-rpc (flexi-streams:octets-to-string (raw-post-data)))))
 
 (defun start-server ()
   (setq hunchentoot:*session-max-time* (* 10 60) ;; 10 minute

@@ -1,10 +1,11 @@
 (defpackage :clims
   (:use :cl
         :cl-json
-        :cl-who
+        ;;:cl-who
         :hunchentoot
 	:log4cl
-	:postmodern)
+	:postmodern
+	)
   (:export :start-server
 	   :stop-server
 	   :restart-server))

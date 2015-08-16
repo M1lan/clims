@@ -40,11 +40,11 @@
 (defun table-as-list (table-name)
   "Takes a the name of a table and returns a list of column name strings cons'ed with the table data of NIL."
   (cond ((stringp table-name)
-         (cons (cons :column-names (table-column-names table-name))
-               (cons :rows (select* (intern table-name)))))
+         (list (cons :columns (table-column-names table-name))
+	       (cons :rows (select* (intern table-name)))))
         ((symbolp table-name)
-         (cons (table-column-names (string-downcase (symbol-name table-name)))
-               (select* table-name)))
+         (list (cons :columns (table-column-names (string-downcase (symbol-name table-name))))
+               (cons :rows (select* table-name))))
         (t nil)))
 
 (defun table-column-names (table-name)

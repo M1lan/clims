@@ -47,9 +47,9 @@
 
 (defun manufacturing-view-data ()
   "Returns a list, first element containing the raw materials the second containing the finished materials.  For use in creating a new manufacturing batch"
-  (cons (query (:select '* :from 'raw_materials) :alists)
+  (pairlis '(raw_materials finished_materials) (cons (query (:select '* :from 'raw_materials) :alists)
 	(cons (query (:select '* :from 'finished_materials) :alists)
-	      '())))
+	      '()))))
 
 ;;;manufacturing
 (defun update-raw-material-quantity (name id quantities)
@@ -57,8 +57,8 @@
   ;;validate a net zero change in 
   (unless (= 0 (apply '+ quantities))
     (error 
-     (print "there is not a net 0 change in the quantities")
-     (print quantities)))
+     (log:error "there is not a net 0 change in the quantities")
+     (log:error quantities)))
   (let*	((quantity_old (car (query (:select 'quantity_fresh
 					    'quantity_used_1
 					    'quantity_used_2
@@ -124,7 +124,7 @@
 
 ;;;outputs = (((:NAME "name-str") (:QUANTITY-MADE output-amount))*)
 ;;;inputs = (((:NAME "name-str") (:ORDER-ID order-id) (:AMOUNT-USED total) (:QUANTITY-USED ((:QUANTITY-FRESH amount) (:QUANTITY-USED-1 amount) (:QUANTITY-USED-2 amount) (:QUANTITY-USED-3 amount) (:QUANTITY-TRASHED amount))) (:QUANTITY-RETURNED ((:QUANTITY-FRESH amount) (:QUANTITY-USED-1 amount) (:QUANTITY-USED-2 amount) (:QUANTITY-USED-3 amount) (:QUANTITY-TRASHED amount))))*)
-;;;batch-name = batch-name or ((:BATCH-NAME "batch-name"))
+;;;batch-name = batch-name
 
 (defun handle-manufacturing (outputs inputs batch-name)
   "creates a manufacturing batch and all of the associated inputs and outputs, edits raw materials"
@@ -138,7 +138,7 @@
 				  collect (cdr field))))
 	    (error () nil)))
 	(with-transaction (manufacturing) 	  
-	  (let ((batch-id (create-manufacturing (cdr (assoc ':BATCH-NAME batch-name)))))
+	  (let ((batch-id (create-manufacturing batch-name)))
 	    (dolist (output outputs)
 	      (create-finished-material batch-id
 					(cdr (assoc ':NAME output))
@@ -156,8 +156,8 @@
 					    (cdr (assoc ':ORDER-ID input))
 					    delta)))))
     (error (e)
-      (print "something bad happened")
-      (print e))))
+      (log:error "something bad happened")
+      (log:error e))))
 
 (defun generate-delta (used returned)
   "takes the used and returned quantities for a material and generates a single delta quantity"
@@ -170,9 +170,9 @@
 (defun order-view-data ()
     "Returns a list, first element containing the suppliers the second containing the raw materials.
 For use in creating a new order"
-  (cons (query (:select '* :from 'suppliers) :alists)
+  (pairlis '(suppliers raw_materials) (cons (query (:select '* :from 'suppliers) :alists)
 	(cons (query (:select '* :from 'raw_materials) :alists)
-	      '())))
+	      '()))))
 
 ;;;order
 (defun create-order (supplier)
@@ -197,26 +197,26 @@ For use in creating a new order"
 					   'order_id order)))
 
 ;;materials = (((:NAME . "name-str") (:QUANTITY . amount) (:COST . cost))*)
-;;supplier = either supplier_id or ((:SUPPLIER-ID . id))
+;;supplier = supplier_id 
 (defun handle-order (materials supplier)
   (handler-case
       (with-transaction(order)
-	(let ((order (create-order (car (assoc ':SUPPLIER-ID supplier)))))
+	(let ((order (create-order supplier)))
 	  (dolist (material materials)
-	    (create-raw-material (car (assoc ':NAME material))
-				 (car (assoc ':QUANTITY material))
-				 (car (assoc ':COST material))
+	    (create-raw-material (cdr (assoc ':NAME material))
+				 (cdr (assoc ':QUANTITY material))
+				 (cdr (assoc ':COST material))
 				 order))))
     (error (e)
-      (print "error processing the order")
-      (print e))))
+      (log:error "error processing the order")
+      (log:error e))))
 
 (defun sale-view-data ()
    "Returns a list, first element containing finished materials the second containing buyers.
 For use in creating a new sale"
-  (cons (query (:select '* :from 'finished_materials) :alists)
+  (pairlis '(finished_materials buyers) (cons (query (:select '* :from 'finished_materials) :alists)
 	(cons (query (:select '* :from 'buyers) :alists)
-	      '())))
+	      '()))))
 
 ;;;sale
 (defun create-sale (buyer)
@@ -231,6 +231,7 @@ For use in creating a new sale"
 
 ;;material = (name batch-id)
 (defun create-sold (name batch-id quantity price sale)
+  (log:error "sold" name batch-id quantity price sale)
   (query (:insert-into 'sold :set 'name name
 		                  'batch_id batch-id
 				  'sale_id sale
@@ -249,17 +250,17 @@ For use in creating a new sale"
 				 (:= 'batch_id batch-id))))))
 
 ;;material-infos = (((:NAME . "name-str") (:BATCH-ID . batch-num) (:QUANTITY . num-to-sell) (:PRICE . price))*)
-;;buyer = either buyer-id or ((:BUYER-ID . buyer-id))
+;;buyer = buyer-id (number)
 (defun handle-sale (materials buyer)
   (handler-case 
       (with-transaction (sale)
-	(let ((sale_id (create-sale (car (assoc ':BUYER-ID buyer)))))
+	(let ((sale_id (create-sale buyer)))
 	  (dolist (material materials)
-	    (create-sold (car (assoc ':NAME material))
-			 (car (assoc ':BATCH-ID material))
-			 (car (assoc ':QUANTITY material))
-			 (car (assoc ':PRICE material))
+	    (create-sold (cdr (assoc ':NAME material))
+			 (cdr (assoc ':BATCH-ID material))
+			 (cdr (assoc ':QUANTITY material))
+			 (cdr (assoc ':PRICE material))
 			 sale_id))))
     (error (e)
-      (print "error processing the sale")
-      (print e))))
+      (log:error "error processing the sale")
+      (log:error e))))
